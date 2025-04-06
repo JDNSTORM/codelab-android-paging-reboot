@@ -48,6 +48,7 @@ android {
         freeCompilerArgs = listOf(
             "-opt-in=kotlin.RequiresOptIn",
             "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
         )
     }
 
@@ -89,6 +90,7 @@ dependencies {
     implementation (libs.androidx.room.ktx)
     implementation (libs.androidx.room.paging)
     implementation (libs.androidx.paging.runtime.ktx)
+    implementation (libs.androidx.paging.compose)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
