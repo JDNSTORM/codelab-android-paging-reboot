@@ -28,7 +28,7 @@ android {
     defaultConfig {
         applicationId = "com.example.android.codelabs.paging"
         minSdk = 23
-        targetSdk = 31
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -40,6 +40,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.findByName("debug")
         }
     }
 
