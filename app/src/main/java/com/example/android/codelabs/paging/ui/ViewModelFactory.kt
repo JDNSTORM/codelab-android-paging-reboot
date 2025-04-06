@@ -30,14 +30,14 @@ class ViewModelFactory(
     private val repository: GithubRepository
 ) : AbstractSavedStateViewModelFactory(owner, null) {
 
-    override fun <T : ViewModel?> create(
+    override fun <T : ViewModel> create(
         key: String,
         modelClass: Class<T>,
         handle: SavedStateHandle
-    ): T & Any {
+    ): T {
         if (modelClass.isAssignableFrom(SearchRepositoriesViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return SearchRepositoriesViewModel(repository, handle) as (T & Any)
+            return SearchRepositoriesViewModel(repository, handle) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
