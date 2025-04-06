@@ -24,7 +24,9 @@ import androidx.paging.cachedIn
 import androidx.paging.insertSeparators
 import androidx.paging.map
 import com.example.android.codelabs.paging.data.GithubRepository
-import com.example.android.codelabs.paging.model.Repo
+import com.example.android.codelabs.paging.ui.models.UiAction
+import com.example.android.codelabs.paging.ui.models.UiModel
+import com.example.android.codelabs.paging.ui.models.UiState
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -61,8 +63,8 @@ class SearchRepositoriesViewModel(
     val accept: (UiAction) -> Unit
 
     init {
-        val initialQuery: String = savedStateHandle.get(LAST_SEARCH_QUERY) ?: DEFAULT_QUERY
-        val lastQueryScrolled: String = savedStateHandle.get(LAST_QUERY_SCROLLED) ?: DEFAULT_QUERY
+        val initialQuery: String = savedStateHandle[LAST_SEARCH_QUERY] ?: UiState.DEFAULT_QUERY
+        val lastQueryScrolled: String = savedStateHandle[LAST_QUERY_SCROLLED] ?: UiState.DEFAULT_QUERY
         val actionStateFlow = MutableSharedFlow<UiAction>()
         val searches = actionStateFlow
             .filterIsInstance<UiAction.Search>()
@@ -140,27 +142,13 @@ class SearchRepositoriesViewModel(
                     }
                 }
             }
+
+    companion object {
+        private val UiModel.RepoItem.roundedStarCount: Int
+            get() = this.repo.stars / 10_000
+
+        private const val LAST_QUERY_SCROLLED: String = "last_query_scrolled"
+        private const val LAST_SEARCH_QUERY: String = "last_search_query"
+    }
 }
 
-sealed class UiAction {
-    data class Search(val query: String) : UiAction()
-    data class Scroll(val currentQuery: String) : UiAction()
-}
-
-data class UiState(
-    val query: String = DEFAULT_QUERY,
-    val lastQueryScrolled: String = DEFAULT_QUERY,
-    val hasNotScrolledForCurrentSearch: Boolean = false
-)
-
-sealed class UiModel {
-    data class RepoItem(val repo: Repo) : UiModel()
-    data class SeparatorItem(val description: String) : UiModel()
-}
-
-private val UiModel.RepoItem.roundedStarCount: Int
-    get() = this.repo.stars / 10_000
-
-private const val LAST_QUERY_SCROLLED: String = "last_query_scrolled"
-private const val LAST_SEARCH_QUERY: String = "last_search_query"
-private const val DEFAULT_QUERY = "Android"

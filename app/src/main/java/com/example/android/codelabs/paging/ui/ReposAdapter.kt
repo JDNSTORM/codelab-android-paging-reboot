@@ -21,6 +21,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.example.android.codelabs.paging.R
+import com.example.android.codelabs.paging.ui.models.UiModel
 
 /**
  * Adapter for the list of repositories.
