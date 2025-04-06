@@ -1,0 +1,5 @@
+local.properties
+/build
+*.log
+# Project exclude paths
+/.gradle/
