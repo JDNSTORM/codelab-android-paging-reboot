@@ -22,6 +22,7 @@ import androidx.savedstate.SavedStateRegistryOwner
 import com.example.android.codelabs.paging.api.GithubService
 import com.example.android.codelabs.paging.data.GithubRepository
 import com.example.android.codelabs.paging.db.RepoDatabase
+import com.example.android.codelabs.paging.db.RepoLocalDataSource
 import com.example.android.codelabs.paging.ui.ViewModelFactory
 
 /**
@@ -36,7 +37,8 @@ object Injection {
      * [GithubLocalCache]
      */
     private fun provideGithubRepository(context: Context): GithubRepository {
-        return GithubRepository(GithubService.create(), RepoDatabase.getInstance(context))
+        val localDataSource = RepoLocalDataSource(RepoDatabase.getInstance(context))
+        return GithubRepository(GithubService.create(), localDataSource)
     }
 
     /**
