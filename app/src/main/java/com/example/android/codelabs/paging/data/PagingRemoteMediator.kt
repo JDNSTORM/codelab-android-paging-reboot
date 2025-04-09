@@ -1,5 +1,6 @@
 package com.example.android.codelabs.paging.data
 
+import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -40,10 +41,11 @@ abstract class PagingRemoteMediator<Key: Any, Model : Any, Entity : Any>(
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO
 ) : RemoteMediator<Key, Model>() {
 
-    override suspend fun load(
+    final override suspend fun load(
         loadType: LoadType,
         state: PagingState<Key, Model>
     ): MediatorResult = withContext(dispatcher) {
+        Log.d("PagingRemoteMediator", "Load Requested: $loadType")
         val refreshKey = when (loadType) {
             LoadType.REFRESH -> state.anchorPosition?.let { position ->
                 state.closestItemToPosition(position)?.let {
@@ -82,6 +84,7 @@ abstract class PagingRemoteMediator<Key: Any, Model : Any, Entity : Any>(
 
         val isRefresh = loadType == LoadType.REFRESH
         val pageSize = if (isRefresh) state.config.initialLoadSize else state.config.pageSize
+        Log.d("PagingRemoteMediator", "PageSize: $pageSize, PageKey: $refreshKey")
 
         try {
             val pagedItems = fetchList(pageSize, refreshKey)
@@ -99,6 +102,11 @@ abstract class PagingRemoteMediator<Key: Any, Model : Any, Entity : Any>(
             MediatorResult.Success(endOfPaginationReached)
         } catch (e: Exception) {
             MediatorResult.Error(e)
+        }
+    }.also {
+        when(it){
+            is MediatorResult.Error -> Log.d("PagingRemoteMediator", "Error(${it.throwable.message})")
+            is MediatorResult.Success -> Log.d("PagingRemoteMediator", "Success(${it.endOfPaginationReached})")
         }
     }
 }
