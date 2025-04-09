@@ -45,12 +45,19 @@ class GithubRepository(
         val dbQuery = "%${query.replace(' ', '%')}%"
         val pagingSourceFactory = { localDataSource.reposByNamePagingSource(dbQuery) }
 
+        /**
+         * FIXME: Append doesn't trigger when reaching the end of the list.
+         *        A workaround has been implemented at [RepoRemoteMediator] to enforce NETWORK_PAGE_SIZE
+         *        So that it can load up to Page 4.
+         *        It only reaches Page 2 with `initialLoadSize = NETWORK_PAGE_SIZE`
+         */
         @OptIn(ExperimentalPagingApi::class)
         return Pager(
             config = PagingConfig(
-                pageSize = NETWORK_PAGE_SIZE,
+                pageSize = RepoRemoteMediator.NETWORK_PAGE_SIZE,
+//                prefetchDistance = NETWORK_PAGE_SIZE / 5,
                 enablePlaceholders = false,
-                initialLoadSize = NETWORK_PAGE_SIZE
+//                initialLoadSize = NETWORK_PAGE_SIZE
             ),
             remoteMediator = RepoRemoteMediator(
                 query = query,
@@ -59,9 +66,5 @@ class GithubRepository(
             ),
             pagingSourceFactory = pagingSourceFactory
         ).flow
-    }
-
-    companion object {
-        const val NETWORK_PAGE_SIZE = 30
     }
 }
