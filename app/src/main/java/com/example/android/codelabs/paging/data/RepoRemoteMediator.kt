@@ -24,10 +24,13 @@ class RepoRemoteMediator(
             page = pageIndex!!,
             itemsPerPage = pageSize
         )
+
+        val prevKey = pageIndex.takeUnless { it == GITHUB_STARTING_PAGE_INDEX }?.minus(1)
+        val nextKey = pageIndex.takeUnless { response.items.isEmpty() }?.plus(1)
         PagedItems(
             refreshKey = pageIndex,
-            prevKey = pageIndex - 1,
-            nextKey = response.nextPage,
+            prevKey = prevKey,
+            nextKey = nextKey,
             items = response.items
         )
     },

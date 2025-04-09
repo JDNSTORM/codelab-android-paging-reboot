@@ -47,7 +47,11 @@ class GithubRepository(
 
         @OptIn(ExperimentalPagingApi::class)
         return Pager(
-            config = PagingConfig(pageSize = NETWORK_PAGE_SIZE, enablePlaceholders = false),
+            config = PagingConfig(
+                pageSize = NETWORK_PAGE_SIZE,
+                enablePlaceholders = false,
+                initialLoadSize = NETWORK_PAGE_SIZE
+            ),
             remoteMediator = RepoRemoteMediator(
                 query = query,
                 service = service,
