@@ -22,7 +22,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.android.codelabs.paging.api.GithubService
-import com.example.android.codelabs.paging.db.RepoDatabase
 import com.example.android.codelabs.paging.db.RepoLocalDataSource
 import com.example.android.codelabs.paging.model.Repo
 import kotlinx.coroutines.flow.Flow
@@ -49,7 +48,7 @@ class GithubRepository(
         @OptIn(ExperimentalPagingApi::class)
         return Pager(
             config = PagingConfig(pageSize = NETWORK_PAGE_SIZE, enablePlaceholders = false),
-            remoteMediator = GithubRemoteMediator(
+            remoteMediator = RepoRemoteMediator(
                 query = query,
                 service = service,
                 localDataSource = localDataSource

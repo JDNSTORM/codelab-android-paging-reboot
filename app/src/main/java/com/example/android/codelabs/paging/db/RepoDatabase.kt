@@ -23,7 +23,7 @@ import androidx.room.RoomDatabase
 import com.example.android.codelabs.paging.model.Repo
 
 @Database(
-    entities = [Repo::class, RemoteKeys::class],
+    entities = [Repo::class, RepoPagingRemoteKeys::class],
     version = 1,
     exportSchema = false
 )

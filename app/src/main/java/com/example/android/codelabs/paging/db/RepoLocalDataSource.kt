@@ -1,9 +1,10 @@
 package com.example.android.codelabs.paging.db
 
-import androidx.paging.LoadType
 import androidx.paging.PagingSource
 import androidx.room.withTransaction
+import com.example.android.codelabs.paging.db.RepoPagingRemoteKeys.Companion.remoteKeys
 import com.example.android.codelabs.paging.model.Repo
+import com.example.android.codelabs.paging.model.paging.PagedItems
 
 class RepoLocalDataSource(
     private val db: RepoDatabase
@@ -13,7 +14,7 @@ class RepoLocalDataSource(
 
     suspend fun insertPagedRepos(
         repos: List<Repo>,
-        keys: List<RemoteKeys>,
+        keys: List<RepoPagingRemoteKeys>,
         refreshData: Boolean
     ) = db.withTransaction {
         if (refreshData) {
@@ -24,7 +25,21 @@ class RepoLocalDataSource(
         reposDao.insertAll(repos)
     }
 
-    suspend fun getRemoteKeys(repoId: Long): RemoteKeys? = remoteKeysDao.remoteKeysRepoId(repoId)
+    suspend fun insertPagedRepos(
+        pagedRepos: PagedItems<Int, Repo>,
+        refreshData: Boolean
+    ) = db.withTransaction {
+        if (refreshData) {
+            remoteKeysDao.clearRemoteKeys()
+            reposDao.clearRepos()
+        }
+        remoteKeysDao.insertAll(
+            pagedRepos.remoteKeys()
+        )
+        reposDao.insertAll(pagedRepos.items)
+    }
+
+    suspend fun getRemoteKeys(repoId: Long): RepoPagingRemoteKeys? = remoteKeysDao.remoteKeysRepoId(repoId)
 
     fun reposByNamePagingSource(queryString: String): PagingSource<Int, Repo> = reposDao.reposByName(queryString)
 }

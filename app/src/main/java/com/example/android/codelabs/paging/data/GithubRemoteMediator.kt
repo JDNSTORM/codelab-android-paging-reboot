@@ -20,11 +20,9 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import androidx.room.withTransaction
 import com.example.android.codelabs.paging.api.GithubService
 import com.example.android.codelabs.paging.api.IN_QUALIFIER
-import com.example.android.codelabs.paging.db.RemoteKeys
-import com.example.android.codelabs.paging.db.RepoDatabase
+import com.example.android.codelabs.paging.db.RepoPagingRemoteKeys
 import com.example.android.codelabs.paging.db.RepoLocalDataSource
 import com.example.android.codelabs.paging.model.Repo
 import retrofit2.HttpException
@@ -33,6 +31,13 @@ import java.io.IOException
 // GitHub page API is 1 based: https://developer.github.com/v3/#pagination
 private const val GITHUB_STARTING_PAGE_INDEX = 1
 
+@Deprecated(
+    message = "Migrated to RepoRemoteMediator",
+    replaceWith = ReplaceWith(
+        "RepoRemoteMediator",
+        "com.example.android.codelabs.paging.data.RepoRemoteMediator"
+    )
+)
 @OptIn(ExperimentalPagingApi::class)
 class GithubRemoteMediator(
     private val query: String,
@@ -93,8 +98,13 @@ class GithubRemoteMediator(
 
             val prevKey = if (page == GITHUB_STARTING_PAGE_INDEX) null else page - 1
             val nextKey = if (endOfPaginationReached) null else page + 1
-            val keys = repos.map {
-                RemoteKeys(repoId = it.id, prevKey = prevKey, nextKey = nextKey)
+            val keys = repos.map { repo ->
+                RepoPagingRemoteKeys(
+                    repoId = repo.id,
+                    prevKey = prevKey,
+                    nextKey = nextKey,
+                    refreshKey = page,
+                )
             }
             localDataSource.insertPagedRepos(
                 repos = repos,
@@ -110,7 +120,7 @@ class GithubRemoteMediator(
         }
     }
 
-    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, Repo>): RemoteKeys? {
+    private suspend fun getRemoteKeyForLastItem(state: PagingState<Int, Repo>): RepoPagingRemoteKeys? {
         // Get the last page that was retrieved, that contained items.
         // From that last page, get the last item
         return state.pages.lastOrNull() { it.data.isNotEmpty() }?.data?.lastOrNull()
@@ -120,7 +130,7 @@ class GithubRemoteMediator(
             }
     }
 
-    private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, Repo>): RemoteKeys? {
+    private suspend fun getRemoteKeyForFirstItem(state: PagingState<Int, Repo>): RepoPagingRemoteKeys? {
         // Get the first page that was retrieved, that contained items.
         // From that first page, get the first item
         return state.pages.firstOrNull { it.data.isNotEmpty() }?.data?.firstOrNull()
@@ -132,7 +142,7 @@ class GithubRemoteMediator(
 
     private suspend fun getRemoteKeyClosestToCurrentPosition(
         state: PagingState<Int, Repo>
-    ): RemoteKeys? {
+    ): RepoPagingRemoteKeys? {
         // The paging library is trying to load data after the anchor position
         // Get the item closest to the anchor position
         return state.anchorPosition?.let { position ->
