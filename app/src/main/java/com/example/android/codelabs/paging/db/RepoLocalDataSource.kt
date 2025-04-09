@@ -9,8 +9,12 @@ import com.example.android.codelabs.paging.model.paging.PagedItems
 class RepoLocalDataSource(
     private val db: RepoDatabase
 ) {
-    private val reposDao = db.reposDao()
-    private val remoteKeysDao = db.remoteKeysDao()
+    private val reposDao by lazy {
+        db.reposDao()
+    }
+    private val remoteKeysDao by lazy {
+        db.remoteKeysDao()
+    }
 
     suspend fun insertPagedRepos(
         repos: List<Repo>,
