@@ -51,6 +51,7 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
@@ -72,7 +73,10 @@ import com.example.android.codelabs.paging.ui.models.UiModel
 import com.example.android.codelabs.paging.ui.models.UiState
 import com.example.android.codelabs.paging.ui.theme.AppTheme
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.runningReduce
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -92,6 +96,16 @@ fun SearchRepositoriesScreen(
     }
     val lazyListState = rememberSaveable(uiState.query, refreshState, saver = LazyListState.Saver) {
         LazyListState()
+    }
+
+    LaunchedEffect(lazyListState) {
+        snapshotFlow {
+            lazyListState.firstVisibleItemIndex
+        }.runningReduce { previousIndex, nextIndex ->
+            val distance = previousIndex.minus(nextIndex).absoluteValue
+            if (distance > 10) Log.d("SearchRepositoriesScreen", "List Jumped from $previousIndex to $nextIndex")
+            nextIndex
+        }.stateIn(this)
     }
 
     /**
