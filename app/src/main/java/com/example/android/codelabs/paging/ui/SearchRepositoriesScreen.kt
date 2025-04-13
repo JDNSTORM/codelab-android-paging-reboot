@@ -23,6 +23,7 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
@@ -135,6 +136,13 @@ fun SearchRepositoriesScreen(
     val errorState by remember(refreshState) {
         derivedStateOf {
             refreshState as? LoadState.Error
+        }
+    }
+    val hasRefreshError by remember(isIdle, isListEmpty, errorState) {
+        derivedStateOf {
+            errorState?.takeIf {
+                isIdle && isListEmpty
+            } != null
         }
     }
     LaunchedEffect(errorState) {
@@ -293,7 +301,7 @@ fun SearchRepositoriesScreen(
                     }
                 )
                 androidx.compose.animation.AnimatedVisibility(
-                    visible = isListEmpty && isIdle,
+                    visible = isListEmpty && isIdle && !hasRefreshError,
                     enter = fadeIn(),
                     exit = fadeOut()
                 ) {
@@ -301,6 +309,20 @@ fun SearchRepositoriesScreen(
                         text = stringResource(R.string.no_results),
                         style = MaterialTheme.typography.headlineSmall
                     )
+                }
+                androidx.compose.animation.AnimatedVisibility(
+                    visible = hasRefreshError,
+                    enter = fadeIn(),
+                    exit = fadeOut()
+                ) {
+                    Button(
+                        onClick = pagingModels::retry,
+                        shape = MaterialTheme.shapes.extraSmall
+                    ) {
+                        Text(
+                            text = stringResource(R.string.retry).uppercase()
+                        )
+                    }
                 }
                 androidx.compose.animation.AnimatedVisibility(
                     visible = isLoading,
