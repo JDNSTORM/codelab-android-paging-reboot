@@ -35,6 +35,7 @@ import androidx.compose.material3.ScaffoldDefaults
 import androidx.compose.material3.Snackbar
 import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.Surface
 import androidx.compose.material3.SwipeToDismissBox
 import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
@@ -55,15 +56,21 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.paging.LoadState
+import androidx.paging.PagingData
 import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.android.codelabs.paging.R
 import com.example.android.codelabs.paging.ui.components.RepoPagingList
 import com.example.android.codelabs.paging.ui.models.UiAction
 import com.example.android.codelabs.paging.ui.models.UiModel
 import com.example.android.codelabs.paging.ui.models.UiState
+import com.example.android.codelabs.paging.ui.theme.AppTheme
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -332,6 +339,28 @@ fun SearchRepositoriesScreen(
                     CircularProgressIndicator()
                 }
             }
+        }
+    }
+}
+
+@Preview
+@Composable
+fun SearchRepositoriesScreenPreview(
+    @PreviewParameter(PagingUiModelsPreviewParameterProvider::class)
+    pagingData: PagingData<UiModel>
+) {
+    val uiState = remember {
+        UiState()
+    }
+    val pagingModels = remember {
+        flowOf(pagingData)
+    }.collectAsLazyPagingItems()
+    AppTheme {
+        Surface {
+            SearchRepositoriesScreen(
+                uiState = uiState,
+                pagingModels = pagingModels
+            ) { }
         }
     }
 }
