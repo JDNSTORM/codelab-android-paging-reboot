@@ -1,6 +1,7 @@
 package com.example.android.codelabs.paging.ui
 
 import android.content.Intent
+import android.util.Log
 import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
@@ -105,7 +106,9 @@ fun SearchRepositoriesScreen(
         }
     }
     LaunchedEffect(shouldScrollToTop) {
-        if (shouldScrollToTop) lazyListState.scrollToItem(0)
+        Log.d("SearchRepositoriesScreen", "ShouldScrollToTop: $shouldScrollToTop")
+        if (!shouldScrollToTop) return@LaunchedEffect
+        lazyListState.scrollToItem(0)
     }
     val activity = LocalActivity.current
     val hasScrolled by remember(lazyListState) {
