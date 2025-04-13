@@ -1,18 +1,16 @@
 package com.example.android.codelabs.paging.ui
 
 import android.content.Intent
-import android.net.Uri
 import androidx.activity.compose.LocalActivity
-import androidx.compose.animation.AnimatedContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
-import androidx.compose.animation.togetherWith
-import androidx.compose.foundation.layout.Box
+import androidx.compose.animation.scaleIn
+import androidx.compose.animation.scaleOut
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.WindowInsetsSides
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.exclude
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -23,9 +21,12 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
-import androidx.compose.material3.Button
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowUp
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -43,10 +44,10 @@ import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
@@ -62,9 +63,7 @@ import com.example.android.codelabs.paging.ui.components.RepoPagingList
 import com.example.android.codelabs.paging.ui.models.UiAction
 import com.example.android.codelabs.paging.ui.models.UiModel
 import com.example.android.codelabs.paging.ui.models.UiState
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -101,16 +100,9 @@ fun SearchRepositoriesScreen(
         if (shouldScrollToTop) lazyListState.scrollToItem(0)
     }
     val activity = LocalActivity.current
-    var hasScrolled by remember(lazyListState) {
-        mutableStateOf(false)
-    }
-    LaunchedEffect(lazyListState) {
-        snapshotFlow {
-            lazyListState.firstVisibleItemIndex
-        }.map {
-            it > 0
-        }.distinctUntilChanged().collectLatest {
-            hasScrolled = it
+    val hasScrolled by remember(lazyListState) {
+        derivedStateOf {
+            lazyListState.firstVisibleItemIndex > 0
         }
     }
     val sendScrolledEvent by rememberUpdatedState {
@@ -133,7 +125,7 @@ fun SearchRepositoriesScreen(
     }
     val isIdle by remember(refreshState) {
         derivedStateOf {
-            refreshState is LoadState.NotLoading
+            refreshState !is LoadState.Loading
         }
     }
     val snackbarHostState = remember {
@@ -155,6 +147,7 @@ fun SearchRepositoriesScreen(
         )
     }
     val focusManager = LocalFocusManager.current
+    val scope = rememberCoroutineScope()
 
     Scaffold(
         modifier = modifier,
@@ -179,6 +172,29 @@ fun SearchRepositoriesScreen(
                     }
                 }
             )
+        },
+        floatingActionButton = {
+            AnimatedVisibility(
+                modifier = Modifier.windowInsetsPadding(
+                    WindowInsets.systemBars.only(WindowInsetsSides.Bottom)
+                ),
+                visible = hasScrolled,
+                enter = fadeIn() + scaleIn(),
+                exit = fadeOut() + scaleOut()
+            ) {
+                FloatingActionButton(
+                    onClick = {
+                        scope.launch {
+                            lazyListState.animateScrollToItem(0)
+                        }
+                    }
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.KeyboardArrowUp,
+                        contentDescription = null
+                    )
+                }
+            }
         }
     ) { innerPadding ->
         Column (
@@ -264,6 +280,9 @@ fun SearchRepositoriesScreen(
 //                }
                 RepoPagingList(
                     modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(
+                        bottom = 80.dp
+                    ),
                     pagingModels = pagingModels,
                     lazyListState = lazyListState,
                     onRepoClick = { repo ->
