@@ -19,13 +19,10 @@ class RepoRemoteMediator(
         localDataSource.getRemoteKeys(it.id)
     },
     fetchList = { pageSize, pageIndex ->
-        val actualPageSize = pageSize.takeUnless {
-            pageIndex == GITHUB_STARTING_PAGE_INDEX
-        }?: NETWORK_PAGE_SIZE
         val response = service.searchRepos(
             query = query + IN_QUALIFIER,
             page = pageIndex!!,
-            itemsPerPage = actualPageSize
+            itemsPerPage = pageSize
         )
 
         val prevKey = pageIndex.takeUnless { it == GITHUB_STARTING_PAGE_INDEX }?.minus(1)
@@ -46,7 +43,7 @@ class RepoRemoteMediator(
     dispatcher = dispatcher
 ){
     companion object {
-        private const val GITHUB_STARTING_PAGE_INDEX = 1
+        const val GITHUB_STARTING_PAGE_INDEX = 1
         const val NETWORK_PAGE_SIZE = 30
     }
 }

@@ -44,20 +44,25 @@ fun RepoPagingList(
         state = lazyListState,
         contentPadding = contentPadding
     ){
-        pagingModels.itemSnapshotList.forEach { model ->
+        pagingModels.itemSnapshotList.forEachIndexed { index, model ->
             when(model){
                 is UiModel.RepoItem -> item(
                     key = model.repo.id
                 ) {
+                    val repo by remember(model, index) {
+                        derivedStateOf {
+                            (pagingModels[index] as? UiModel.RepoItem)?.repo ?: model.repo
+                        }
+                    }
                     Column (
                         modifier = Modifier.animateItem()
                     ){
                         RepoItem(
                             modifier = Modifier
                                 .clickable {
-                                    onRepoClick(model.repo)
+                                    onRepoClick(repo)
                                 },
-                            repo = model.repo
+                            repo = repo
                         )
                         HorizontalDivider()
                     }
@@ -65,9 +70,14 @@ fun RepoPagingList(
                 is UiModel.SeparatorItem -> stickyHeader(
                     key = model.description
                 ) {
+                    val description by remember(model, index) {
+                        derivedStateOf {
+                            (pagingModels[index] as? UiModel.SeparatorItem)?.description ?: model.description
+                        }
+                    }
                     SeparatorItem(
                         modifier = Modifier.animateItem(),
-                        description = model.description
+                        description = description
                     )
                 }
                 null -> item {
