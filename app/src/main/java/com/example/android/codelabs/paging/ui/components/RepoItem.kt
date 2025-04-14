@@ -11,6 +11,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -28,6 +30,11 @@ fun RepoItem(
     padding: PaddingValues = PaddingValues(12.dp),
     repo: Repo
 ) {
+    val description by remember(repo) {
+        derivedStateOf {
+            repo.description?.take(1000)
+        }
+    }
     Column(
         modifier = modifier
             .padding(padding)
@@ -38,7 +45,7 @@ fun RepoItem(
             style = MaterialTheme.typography.headlineSmall,
             color = MaterialTheme.colorScheme.secondary
         )
-        repo.description?.let {
+        description?.let {
             Text(
                 modifier = Modifier
                     .fillMaxWidth()
