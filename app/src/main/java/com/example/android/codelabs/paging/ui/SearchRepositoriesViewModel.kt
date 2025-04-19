@@ -49,71 +49,38 @@ class SearchRepositoriesViewModel(
     private val repository: GithubRepository,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+    private val searchQueryState =
+        savedStateHandle.getStateFlow(LAST_SEARCH_QUERY, UiState.DEFAULT_QUERY)
+    private val lastQueryScrolledState =
+        savedStateHandle.getStateFlow(LAST_QUERY_SCROLLED, UiState.DEFAULT_QUERY)
 
     /**
      * Stream of immutable states representative of the UI.
      */
-    val state: StateFlow<UiState>
+    val uiState: StateFlow<UiState> = combine(
+        searchQueryState,
+        lastQueryScrolledState
+    ) { query, lastQueryScrolled ->
+        UiState(
+            query = query,
+            lastQueryScrolled = lastQueryScrolled,
+            // If the search query matches the scroll query, the user has scrolled
+            hasNotScrolledForCurrentSearch = query != lastQueryScrolled
+        )
+    }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), UiState())
 
-    val pagingDataFlow: Flow<PagingData<UiModel>>
+    val pagingDataFlow: Flow<PagingData<UiModel>> = searchQueryState
+        .flatMapLatest { searchRepo(queryString = it) }
+        .cachedIn(viewModelScope)
 
     /**
-     * Processor of side effects from the UI which in turn feedback into [state]
+     * Processor of side effects from the UI which in turn feedback into [uiState]
      */
-    val accept: (UiAction) -> Unit
-
-    init {
-        val initialQuery: String = savedStateHandle[LAST_SEARCH_QUERY] ?: UiState.DEFAULT_QUERY
-        val lastQueryScrolled: String =
-            savedStateHandle[LAST_QUERY_SCROLLED] ?: UiState.DEFAULT_QUERY
-        val actionStateFlow = MutableSharedFlow<UiAction>()
-        val searches = actionStateFlow
-            .filterIsInstance<UiAction.Search>()
-            .distinctUntilChanged()
-            .onStart { emit(UiAction.Search(query = initialQuery)) }
-        val queriesScrolled = actionStateFlow
-            .filterIsInstance<UiAction.Scroll>()
-            .distinctUntilChanged()
-            // This is shared to keep the flow "hot" while caching the last query scrolled,
-            // otherwise each flatMapLatest invocation would lose the last query scrolled,
-            .shareIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
-                replay = 1
-            )
-            .onStart { emit(UiAction.Scroll(currentQuery = lastQueryScrolled)) }
-
-        pagingDataFlow = searches
-            .flatMapLatest { searchRepo(queryString = it.query) }
-            .cachedIn(viewModelScope)
-
-        state = combine(
-            searches,
-            queriesScrolled,
-            ::Pair
-        ).map { (search, scroll) ->
-            UiState(
-                query = search.query,
-                lastQueryScrolled = scroll.currentQuery,
-                // If the search query matches the scroll query, the user has scrolled
-                hasNotScrolledForCurrentSearch = search.query != scroll.currentQuery
-            )
+    fun uiAction(action: UiAction) {
+        when (action) {
+            is UiAction.Scroll -> savedStateHandle[LAST_QUERY_SCROLLED] = action.currentQuery
+            is UiAction.Search -> savedStateHandle[LAST_SEARCH_QUERY] = action.query.trim()
         }
-            .stateIn(
-                scope = viewModelScope,
-                started = SharingStarted.WhileSubscribed(stopTimeoutMillis = 5000),
-                initialValue = UiState()
-            )
-
-        accept = { action ->
-            viewModelScope.launch { actionStateFlow.emit(action) }
-        }
-    }
-
-    override fun onCleared() {
-        savedStateHandle[LAST_SEARCH_QUERY] = state.value.query
-        savedStateHandle[LAST_QUERY_SCROLLED] = state.value.lastQueryScrolled
-        super.onCleared()
     }
 
     private fun searchRepo(queryString: String): Flow<PagingData<UiModel>> =

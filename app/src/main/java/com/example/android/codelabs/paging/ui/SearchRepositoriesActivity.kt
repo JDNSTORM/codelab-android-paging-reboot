@@ -65,9 +65,9 @@ class SearchRepositoriesActivity : AppCompatActivity() {
 
         // bind the state
         binding.bindState(
-            uiState = viewModel.state,
+            uiState = viewModel.uiState,
             pagingData = viewModel.pagingDataFlow,
-            uiActions = viewModel.accept
+            uiActions = viewModel::uiAction
         )
     }
 
