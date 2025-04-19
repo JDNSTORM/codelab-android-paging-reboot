@@ -4,10 +4,12 @@ import android.content.Intent
 import android.util.Log
 import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.scaleIn
 import androidx.compose.animation.scaleOut
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.WindowInsets
@@ -194,8 +196,11 @@ fun SearchRepositoriesScreen(
                 snackbar = { data ->
                     SwipeToDismissBox(
                         modifier = Modifier
-                            .windowInsetsPadding(
-                                WindowInsets.systemBars.only(WindowInsetsSides.Bottom)
+                            .then(
+                                if (!hasScrolled) Modifier.windowInsetsPadding(
+                                    WindowInsets.systemBars.only(WindowInsetsSides.Bottom)
+                                )
+                                else Modifier
                             ),
                         state = swipeToDismissBoxState,
                         backgroundContent = {},
@@ -211,8 +216,8 @@ fun SearchRepositoriesScreen(
                     WindowInsets.systemBars.only(WindowInsetsSides.Bottom)
                 ),
                 visible = hasScrolled,
-                enter = fadeIn() + scaleIn(),
-                exit = fadeOut() + scaleOut()
+                enter = fadeIn() + scaleIn() + expandVertically(),
+                exit = fadeOut() + scaleOut() + shrinkVertically()
             ) {
                 FloatingActionButton(
                     onClick = {
