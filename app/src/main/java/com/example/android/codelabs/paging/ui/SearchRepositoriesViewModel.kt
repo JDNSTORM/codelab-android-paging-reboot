@@ -64,7 +64,8 @@ class SearchRepositoriesViewModel(
 
     init {
         val initialQuery: String = savedStateHandle[LAST_SEARCH_QUERY] ?: UiState.DEFAULT_QUERY
-        val lastQueryScrolled: String = savedStateHandle[LAST_QUERY_SCROLLED] ?: UiState.DEFAULT_QUERY
+        val lastQueryScrolled: String =
+            savedStateHandle[LAST_QUERY_SCROLLED] ?: UiState.DEFAULT_QUERY
         val actionStateFlow = MutableSharedFlow<UiAction>()
         val searches = actionStateFlow
             .filterIsInstance<UiAction.Search>()
@@ -117,30 +118,26 @@ class SearchRepositoriesViewModel(
 
     private fun searchRepo(queryString: String): Flow<PagingData<UiModel>> =
         repository.getSearchResultStream(queryString)
-            .map { pagingData -> pagingData.map { UiModel.RepoItem(it) } }
-            .map {
-                it.insertSeparators { before, after ->
-                    if (after == null) {
-                        // we're at the end of the list
-                        return@insertSeparators null
-                    }
-
-                    if (before == null) {
-                        // we're at the beginning of the list
-                        return@insertSeparators UiModel.SeparatorItem("${after.roundedStarCount}0.000+ stars")
-                    }
-                    // check between 2 items
-                    if (before.roundedStarCount > after.roundedStarCount) {
-                        if (after.roundedStarCount >= 1) {
-                            UiModel.SeparatorItem("${after.roundedStarCount}0.000+ stars")
+            .map { pagingData ->
+                pagingData
+                    .map { UiModel.RepoItem(it) }
+                    .insertSeparators { before, after ->
+                        after  // we're at the end of the list
+                            ?: return@insertSeparators null
+                        before // we're at the beginning of the list
+                            ?: return@insertSeparators UiModel.SeparatorItem("${after.roundedStarCount}0.000+ stars")
+                        // check between 2 items
+                        if (before.roundedStarCount > after.roundedStarCount) {
+                            if (after.roundedStarCount >= 1) {
+                                UiModel.SeparatorItem("${after.roundedStarCount}0.000+ stars")
+                            } else {
+                                UiModel.SeparatorItem("< 10.000+ stars")
+                            }
                         } else {
-                            UiModel.SeparatorItem("< 10.000+ stars")
+                            // no separator
+                            null
                         }
-                    } else {
-                        // no separator
-                        null
                     }
-                }
             }
 
     companion object {
