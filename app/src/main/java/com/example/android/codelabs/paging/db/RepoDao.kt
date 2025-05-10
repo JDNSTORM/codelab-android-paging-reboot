@@ -31,7 +31,7 @@ interface RepoDao {
 
     @Query(
         "SELECT * FROM repos WHERE " +
-            "name LIKE :queryString OR description LIKE :queryString " +
+            "name LIKE '%'||:queryString||'%' OR description LIKE '%'||:queryString||'%' " +
             "ORDER BY stars DESC, name ASC"
     )
     fun reposByName(queryString: String): PagingSource<Int, Repo>
