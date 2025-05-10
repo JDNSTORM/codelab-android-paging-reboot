@@ -12,15 +12,20 @@ import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.example.android.codelabs.paging.model.Repo
 import com.example.android.codelabs.paging.ui.models.UiModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.reduce
+import kotlinx.coroutines.flow.runningReduce
 import java.util.UUID
 
 @Composable
@@ -31,11 +36,14 @@ fun RepoPagingList(
     lazyListState: LazyListState = rememberLazyListState(),
     onRepoClick: (Repo) -> Unit
 ) {
-    val isAppending by remember(pagingModels.loadState.append) {
-        derivedStateOf {
+    val isAppending by remember(pagingModels) {
+        snapshotFlow {
             pagingModels.loadState.append !is LoadState.NotLoading
+        }.runningReduce { wasAppending, isAppending ->
+            if (wasAppending && !isAppending) delay(500)
+            isAppending
         }
-    }
+    }.collectAsState(false)
     val appendingKey = rememberSaveable {
         UUID.randomUUID().toString()
     }
