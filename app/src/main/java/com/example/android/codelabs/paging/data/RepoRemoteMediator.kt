@@ -38,6 +38,7 @@ class RepoRemoteMediator(
     storeItems = { pagedItems, clearData ->
         Log.d("RepoRemoteMediator", "Storing Items with Stars: ${pagedItems.items.map { it.stars }.sortedDescending()}")
         localDataSource.insertPagedRepos(
+            queryString = query,
             pagedRepos = pagedItems,
             refreshData = clearData
         )

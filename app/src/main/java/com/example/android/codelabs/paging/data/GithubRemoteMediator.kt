@@ -104,6 +104,7 @@ class GithubRemoteMediator(
                     prevKey = prevKey,
                     nextKey = nextKey,
                     refreshKey = page,
+                    query = query
                 )
             }
             localDataSource.insertPagedRepos(

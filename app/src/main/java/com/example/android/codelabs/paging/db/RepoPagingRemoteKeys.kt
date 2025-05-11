@@ -28,6 +28,7 @@ data class RepoPagingRemoteKeys(
     override val refreshKey: Int?,
     override val prevKey: Int?,
     override val nextKey: Int?,
+    val query: String
 //    override val position: Int
 ): PagingRemoteKeys<Int> {
     companion object {
@@ -44,6 +45,7 @@ data class RepoPagingRemoteKeys(
          * @return A list of `RepoPagingRemoteKeys` objects, each corresponding to a repository in the current page.
          */
         fun PagedItems<Int, Repo>.remoteKeys(
+            query: String,
 //            currentPosition: Int
         ): List<RepoPagingRemoteKeys> = items.map { repo ->
             RepoPagingRemoteKeys(
@@ -51,6 +53,7 @@ data class RepoPagingRemoteKeys(
                 refreshKey = refreshKey,
                 prevKey = prevKey,
                 nextKey = nextKey,
+                query = query
 //                position = currentPosition + index
             )
         }
