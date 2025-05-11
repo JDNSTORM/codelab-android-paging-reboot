@@ -48,7 +48,7 @@ class GithubRepository(
             config = PagingConfig(
                 pageSize = RepoRemoteMediator.NETWORK_PAGE_SIZE,
                 prefetchDistance = RepoRemoteMediator.NETWORK_PAGE_SIZE / 3,
-                enablePlaceholders = false,
+                enablePlaceholders = true,
                 initialLoadSize = RepoRemoteMediator.NETWORK_PAGE_SIZE
             ),
             initialKey = RepoRemoteMediator.GITHUB_STARTING_PAGE_INDEX,

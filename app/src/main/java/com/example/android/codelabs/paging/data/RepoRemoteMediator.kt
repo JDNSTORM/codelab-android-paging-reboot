@@ -51,6 +51,6 @@ class RepoRemoteMediator(
 ){
     companion object {
         const val GITHUB_STARTING_PAGE_INDEX = 1
-        const val NETWORK_PAGE_SIZE = 30
+        const val NETWORK_PAGE_SIZE = 10
     }
 }

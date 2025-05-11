@@ -96,7 +96,8 @@ fun SearchRepositoriesScreen(
             pagingModels.loadState.refresh
         }
     }
-    val lazyListState = rememberSaveable(uiState.query, refreshState, saver = LazyListState.Saver) {
+    val lazyListState = rememberSaveable(uiState.query, saver = LazyListState.Saver) {
+        Log.d("SearchRepositoriesScreen", "LazyListState Initialized for ${uiState.query}")
         LazyListState()
     }
 
@@ -116,16 +117,16 @@ fun SearchRepositoriesScreen(
      *        refresh to finish.
      *        [LazyListState] is initialized every change in query to ensure position at 0
      */
-    val shouldScrollToTop by remember(uiState.hasNotScrolledForCurrentSearch, refreshState) {
-        derivedStateOf {
-            refreshState is LoadState.NotLoading && uiState.hasNotScrolledForCurrentSearch
-        }
-    }
-    LaunchedEffect(shouldScrollToTop) {
-        Log.d("SearchRepositoriesScreen", "ShouldScrollToTop: $shouldScrollToTop")
-        if (!shouldScrollToTop) return@LaunchedEffect
-        lazyListState.scrollToItem(0)
-    }
+//    val shouldScrollToTop by remember(uiState.hasNotScrolledForCurrentSearch, refreshState) {
+//        derivedStateOf {
+//            refreshState is LoadState.NotLoading && uiState.hasNotScrolledForCurrentSearch
+//        }
+//    }
+//    LaunchedEffect(shouldScrollToTop) {
+//        Log.d("SearchRepositoriesScreen", "ShouldScrollToTop: $shouldScrollToTop")
+//        if (!shouldScrollToTop) return@LaunchedEffect
+//        lazyListState.scrollToItem(0)
+//    }
     val activity = LocalActivity.current
     val hasScrolled by remember(lazyListState) {
         derivedStateOf {

@@ -89,7 +89,12 @@ fun RepoPagingList(
                     )
                 }
                 null -> item {
-                    RepoItem(repo = repoPlaceholder)
+                    val repoItem by remember(index) {
+                        derivedStateOf {
+                            (pagingModels[index] as? UiModel.RepoItem)?.repo ?: repoPlaceholder
+                        }
+                    }
+                    RepoItem(repo = repoItem)
                 }
             }
         }
