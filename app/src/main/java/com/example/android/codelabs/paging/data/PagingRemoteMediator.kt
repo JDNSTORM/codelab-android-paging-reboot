@@ -38,7 +38,8 @@ abstract class PagingRemoteMediator<Key: Any, Model : Any, Entity : Any>(
     private val getRemoteKeys: suspend (Model) -> PagingRemoteKeys<Key>?,
     private val fetchList: suspend (pageSize: Int, refreshKey: Key?) -> PagedItems<Key, Entity>,
     private val storeItems: suspend (PagedItems<Key, Entity>, clearData: Boolean) -> Unit,
-    private val dispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
+    private val onFailure: suspend (LoadType) -> Unit = {}
 ) : RemoteMediator<Key, Model>() {
 
     final override suspend fun load(
@@ -101,6 +102,7 @@ abstract class PagingRemoteMediator<Key: Any, Model : Any, Entity : Any>(
             }
             MediatorResult.Success(endOfPaginationReached)
         } catch (e: Exception) {
+            onFailure(loadType)
             MediatorResult.Error(e)
         }
     }.also {

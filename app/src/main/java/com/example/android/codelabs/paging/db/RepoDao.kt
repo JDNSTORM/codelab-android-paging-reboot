@@ -21,6 +21,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import com.example.android.codelabs.paging.model.Repo
 import kotlinx.coroutines.flow.Flow
 
@@ -30,12 +31,20 @@ interface RepoDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(repos: List<Repo>)
 
+    @Deprecated("Use reposByQuery instead", ReplaceWith("reposByQuery(queryString)"))
     @Query(
         "SELECT * FROM repos WHERE " +
             "name LIKE '%'||:queryString||'%' OR description LIKE '%'||:queryString||'%' " +
             "ORDER BY stars DESC, name ASC"
     )
     fun reposByName(queryString: String): PagingSource<Int, Repo>
+
+    @Transaction
+    @Query("SELECT * FROM repos " +
+            "INNER JOIN remote_keys ON repos.id = remote_keys.repoId " +
+            "WHERE remote_keys.`query` = :queryString " +
+            "ORDER BY stars DESC, name ASC")
+    fun reposByQuery(queryString: String): PagingSource<Int, Repo>
 
     @Query(
         "SELECT * FROM repos WHERE " +

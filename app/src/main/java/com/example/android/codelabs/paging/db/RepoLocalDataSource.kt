@@ -48,7 +48,7 @@ class RepoLocalDataSource(
 
     suspend fun getRemoteKeys(repoId: Long): RepoPagingRemoteKeys? = remoteKeysDao.remoteKeysRepoId(repoId)
 
-    fun reposByNamePagingSource(queryString: String): PagingSource<Int, Repo> = reposDao.reposByName(queryString)
+    fun reposPagingSource(queryString: String): PagingSource<Int, Repo> = reposDao.reposByQuery(queryString)
 
     /**
      * Creates missing pagination data for a given query string by fetching existing local data
@@ -70,7 +70,7 @@ class RepoLocalDataSource(
                 nextKey = null,
                 items = repos
             ),
-            refreshData = true
+            refreshData = false
         )
     }
 }

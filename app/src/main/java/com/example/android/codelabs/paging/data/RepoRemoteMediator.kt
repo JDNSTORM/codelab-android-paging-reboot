@@ -1,6 +1,7 @@
 package com.example.android.codelabs.paging.data
 
 import android.util.Log
+import androidx.paging.LoadType
 import com.example.android.codelabs.paging.api.GithubService
 import com.example.android.codelabs.paging.api.IN_QUALIFIER
 import com.example.android.codelabs.paging.db.RepoLocalDataSource
@@ -43,7 +44,10 @@ class RepoRemoteMediator(
             refreshData = clearData
         )
     },
-    dispatcher = dispatcher
+    dispatcher = dispatcher,
+    onFailure = {
+        if (it == LoadType.REFRESH) localDataSource.createMissingDataForQuery(query)
+    }
 ){
     companion object {
         const val GITHUB_STARTING_PAGE_INDEX = 1

@@ -41,8 +41,7 @@ class GithubRepository(
     fun getSearchResultStream(query: String): Flow<PagingData<Repo>> {
         Log.d("GithubRepository", "New query: $query")
 
-        val dbQuery = query.replace(' ', '%')
-        val pagingSourceFactory = { localDataSource.reposByNamePagingSource(dbQuery) }
+        val pagingSourceFactory = { localDataSource.reposPagingSource(query) }
 
         @OptIn(ExperimentalPagingApi::class)
         return Pager(
