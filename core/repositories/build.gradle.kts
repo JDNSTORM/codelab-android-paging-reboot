@@ -29,6 +29,8 @@ dependencies {
     implementation(projects.core.data.local)
     implementation(projects.core.data.network)
     api(projects.core.models)
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.core)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
