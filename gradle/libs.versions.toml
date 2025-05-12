@@ -50,6 +50,8 @@ androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "a
 constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintlayout" }
 retrofit-converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
 androidx-core = { module = "androidx.core:core-ktx", version.ref = "androidxCore" }
+kotlin-stdlib = { group = "org.jetbrains.kotlin", name = "kotlin-stdlib", version.ref = "kotlin" }
+kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinxCoroutines" }
 androidx-lifecycle-runtime = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "androidxLifecycle" }
@@ -91,6 +93,7 @@ projectAndroidApplicationCompose = { id = "project.android.application.compose",
 projectAndroidLibrary = { id = "project.android.library", version = "unspecified" }
 projectAndroidLibraryCompose = { id = "project.android.library.compose", version = "unspecified" }
 projectJvmLibrary = { id = "project.jvm.library", version = "unspecified" }
+projectKmp = { id = "project.kmp", version = "unspecified" }
 # Convention Plugins ##
 
 androidApplication = { id = "com.android.application", version.ref = "androidGradle" }

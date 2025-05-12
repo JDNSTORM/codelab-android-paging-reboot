@@ -48,5 +48,9 @@ gradlePlugin {
             id = "project.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
         }
+        register("kmp"){
+            id = "project.kmp"
+            implementationClass = "KmpConventionPlugin"
+        }
     }
 }
