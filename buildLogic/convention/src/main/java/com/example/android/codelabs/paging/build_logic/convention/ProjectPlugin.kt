@@ -1,6 +1,7 @@
 package com.example.android.codelabs.paging.build_logic.convention
 
 import AndroidApplicationConventionPlugin
+import AndroidLibraryConventionPlugin
 
 internal enum class ProjectPlugin(val id: String) {
     KotlinAndroid("org.jetbrains.kotlin.android"),
@@ -13,4 +14,5 @@ internal enum class ProjectPlugin(val id: String) {
     Compose("org.jetbrains.kotlin.plugin.compose"),
     Serialization("org.jetbrains.kotlin.plugin.serialization"),
     AndroidAppConvention(AndroidApplicationConventionPlugin.PLUGIN_ID),
+    AndroidLibConvention(AndroidLibraryConventionPlugin.PLUGIN_ID),
 }

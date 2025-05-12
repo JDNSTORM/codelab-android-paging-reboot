@@ -40,6 +40,10 @@ gradlePlugin {
             id = "project.android.library"
             implementationClass = "AndroidLibraryConventionPlugin"
         }
+        register("androidLibraryCompose"){
+            id = "project.android.library.compose"
+            implementationClass = "AndroidLibraryComposeConventionPlugin"
+        }
         register("jvmLibrary"){
             id = "project.jvm.library"
             implementationClass = "JvmLibraryConventionPlugin"
