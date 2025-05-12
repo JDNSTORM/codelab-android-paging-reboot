@@ -28,6 +28,17 @@ dependencies {
 }
 gradlePlugin {
     plugins {
-
+        register("androidApplication"){
+            id = "project.android.application"
+            implementationClass = "AndroidApplicationConventionPlugin"
+        }
+        register("androidLibrary"){
+            id = "project.android.library"
+            implementationClass = "AndroidLibraryConventionPlugin"
+        }
+        register("jvmLibrary"){
+            id = "project.jvm.library"
+            implementationClass = "JvmLibraryConventionPlugin"
+        }
     }
 }
