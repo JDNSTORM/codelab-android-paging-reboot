@@ -94,4 +94,5 @@ dependencies {
 
     implementation(projects.core.models)
     implementation(projects.core.data.network)
+    implementation(projects.core.data.local)
 }

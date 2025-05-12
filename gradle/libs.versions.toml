@@ -16,6 +16,9 @@ androidxRoom = "2.7.1"
 retrofit = "2.9.0"
 activityCompose = "1.10.1"
 composeBom = "2025.05.00"
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
 
 [libraries]
 # Gradle
@@ -58,6 +61,9 @@ compose-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling
 compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 compose-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 compose-material3 = { group = "androidx.compose.material3", name = "material3" }
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
+androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
 
 [plugins]
 # Convention Plugins
@@ -74,5 +80,6 @@ androidxRoom = { id = "androidx.room", version.ref = "androidxRoom" }
 devtoolsKsp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 kotlinCompose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinJvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+androidLibrary = { id = "com.android.library", version.ref = "androidGradle" }
 
 [bundles]

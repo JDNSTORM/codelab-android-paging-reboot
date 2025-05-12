@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.codelabs.paging.db
+package com.example.android.codelabs.paging.core.data.local
 
 import androidx.paging.PagingSource
 import androidx.room.Dao

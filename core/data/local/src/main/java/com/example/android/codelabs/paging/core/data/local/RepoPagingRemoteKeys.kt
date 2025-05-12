@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.codelabs.paging.db
+package com.example.android.codelabs.paging.core.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
