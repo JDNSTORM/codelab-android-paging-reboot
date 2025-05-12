@@ -7,4 +7,6 @@ dependencies {
     implementation(libs.retrofit.mock)
     implementation(libs.logging.interceptor)
     implementation(projects.core.models)
+    implementation(platform(libs.koin.bom))
+    implementation(libs.koin.core)
 }
