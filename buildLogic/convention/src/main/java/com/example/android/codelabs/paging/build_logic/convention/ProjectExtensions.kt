@@ -1,4 +1,4 @@
-package com.example.android.codelabs.paging.build_logic.convenion
+package com.example.android.codelabs.paging.build_logic.convention
 
 import com.android.build.api.dsl.CommonExtension
 import org.gradle.api.Project
