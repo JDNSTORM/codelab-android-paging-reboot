@@ -18,12 +18,19 @@ package com.example.android.codelabs.paging.core.data.network
 
 import com.example.android.codelabs.paging.core.models.Repo
 import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Data class to hold repo responses from searchRepo API calls.
  */
+@Serializable
 data class RepoSearchResponse(
-    @SerializedName("total_count") val total: Int = 0,
-    @SerializedName("items") val items: List<Repo> = emptyList(),
+    @SerialName("total_count")
+    @SerializedName("total_count")
+    val total: Int = 0,
+    @SerializedName("items")
+    @SerialName("items")
+    val items: List<Repo> = emptyList(),
     val nextPage: Int? = null
 )

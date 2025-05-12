@@ -41,8 +41,9 @@ interface GithubService {
     ): RepoSearchResponse
 
     companion object {
-        private const val BASE_URL = "https://api.github.com/"
+        internal const val BASE_URL = "https://api.github.com/"
 
+        @Deprecated("Migrated to Ktor")
         fun create(): GithubService {
             val logger = HttpLoggingInterceptor()
             logger.level = Level.BASIC
