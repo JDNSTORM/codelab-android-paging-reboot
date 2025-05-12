@@ -61,6 +61,7 @@ compose-material3 = { group = "androidx.compose.material3", name = "material3" }
 [plugins]
 # Convention Plugins
 projectAndroidApplication = { id = "project.android.application", version = "unspecified" }
+projectAndroidApplicationCompose = { id = "project.android.application.compose", version = "unspecified" }
 projectAndroidLibrary = { id = "project.android.library", version = "unspecified" }
 projectJvmLibrary = { id = "project.jvm.library", version = "unspecified" }
 # Convention Plugins ##
