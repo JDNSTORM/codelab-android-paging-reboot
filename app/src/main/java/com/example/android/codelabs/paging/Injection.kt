@@ -25,6 +25,7 @@ import com.example.android.codelabs.paging.core.data.local.RepoDatabase
 import com.example.android.codelabs.paging.core.data.local.RepoLocalDataSource
 import com.example.android.codelabs.paging.ui.ViewModelFactory
 
+@Deprecated("Migrated to Koin Dependency Injection")
 /**
  * Class that handles object creation.
  * Like this, objects can be passed as parameters in the constructors and then replaced for

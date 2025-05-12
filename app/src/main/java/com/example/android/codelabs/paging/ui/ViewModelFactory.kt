@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewModel
 import androidx.savedstate.SavedStateRegistryOwner
 import com.example.android.codelabs.paging.core.repositories.GithubRepository
 
+@Deprecated("Migrated to Koin Dependency Injection")
 /**
  * Factory for ViewModels
  */
