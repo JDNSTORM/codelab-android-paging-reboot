@@ -1,4 +1,4 @@
-package com.example.android.codelabs.paging.data
+package com.example.android.codelabs.paging.core.repositories
 
 import android.util.Log
 import androidx.paging.LoadType

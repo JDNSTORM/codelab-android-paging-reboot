@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.codelabs.paging.data
+package com.example.android.codelabs.paging.core.repositories
 
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
@@ -35,7 +35,7 @@ private const val GITHUB_STARTING_PAGE_INDEX = 1
     message = "Migrated to RepoRemoteMediator",
     replaceWith = ReplaceWith(
         "RepoRemoteMediator",
-        "com.example.android.codelabs.paging.data.RepoRemoteMediator"
+        "com.example.android.codelabs.paging.core.repositories.RepoRemoteMediator"
     )
 )
 @OptIn(ExperimentalPagingApi::class)
