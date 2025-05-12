@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.android.codelabs.paging.api
+package com.example.android.codelabs.paging.core.data.network
 
 import com.example.android.codelabs.paging.core.models.Repo
 import com.google.gson.annotations.SerializedName

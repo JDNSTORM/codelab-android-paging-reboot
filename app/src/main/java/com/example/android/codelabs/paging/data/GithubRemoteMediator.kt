@@ -20,8 +20,8 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import com.example.android.codelabs.paging.api.GithubService
-import com.example.android.codelabs.paging.api.IN_QUALIFIER
+import com.example.android.codelabs.paging.core.data.network.GithubService
+import com.example.android.codelabs.paging.core.data.network.IN_QUALIFIER
 import com.example.android.codelabs.paging.db.RepoPagingRemoteKeys
 import com.example.android.codelabs.paging.db.RepoLocalDataSource
 import com.example.android.codelabs.paging.core.models.Repo

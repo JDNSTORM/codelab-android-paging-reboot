@@ -21,7 +21,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.android.codelabs.paging.api.GithubService
+import com.example.android.codelabs.paging.core.data.network.GithubService
 import com.example.android.codelabs.paging.db.RepoLocalDataSource
 import com.example.android.codelabs.paging.core.models.Repo
 import kotlinx.coroutines.flow.Flow

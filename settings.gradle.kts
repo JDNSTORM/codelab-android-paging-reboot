@@ -24,3 +24,4 @@ dependencyResolutionManagement {
 rootProject.name = "GithubRepoViewer"
 include(":app")
 include(":core:models")
+include(":core:data:network")

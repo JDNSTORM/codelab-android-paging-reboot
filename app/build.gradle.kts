@@ -93,4 +93,5 @@ dependencies {
     implementation (libs.logging.interceptor)
 
     implementation(projects.core.models)
+    implementation(projects.core.data.network)
 }
