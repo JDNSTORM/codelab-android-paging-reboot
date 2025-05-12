@@ -17,7 +17,6 @@
 package com.example.android.codelabs.paging.core.data.network
 
 import com.example.android.codelabs.paging.core.models.Repo
-import com.google.gson.annotations.SerializedName
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -27,9 +26,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RepoSearchResponse(
     @SerialName("total_count")
-    @SerializedName("total_count")
     val total: Int = 0,
-    @SerializedName("items")
     @SerialName("items")
     val items: List<Repo> = emptyList(),
     val nextPage: Int? = null

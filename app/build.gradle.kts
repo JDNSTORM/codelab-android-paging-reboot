@@ -16,8 +16,6 @@
 
 plugins {
     alias(libs.plugins.projectAndroidApplicationCompose)
-    alias(libs.plugins.androidxRoom)
-    alias(libs.plugins.devtoolsKsp)
 }
 
 android {
@@ -46,27 +44,12 @@ android {
             "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
         )
     }
-
-    buildFeatures {
-        viewBinding = true
-    }
-}
-
-ksp {
-    arg("room.generateKotlin", "true")
-}
-
-room {
-    schemaDirectory("$projectDir/schemas")
 }
 
 dependencies {
-    implementation (fileTree("libs"))
     implementation (libs.kotlinx.coroutines.android)
     implementation (libs.kotlinx.coroutines.core)
     implementation (libs.androidx.appcompat)
-    implementation (libs.recyclerview)
-    implementation (libs.constraintlayout)
     implementation (libs.material)
 
     // architecture components
@@ -75,22 +58,11 @@ dependencies {
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
     implementation (libs.androidx.lifecycle.livedata.ktx)
     implementation (libs.androidx.lifecycle.viewmodel.savedstate)
-    implementation (libs.androidx.room.runtime)
-    implementation (libs.androidx.room.ktx)
-    implementation (libs.androidx.room.paging)
-    implementation (libs.androidx.paging.runtime.ktx)
     implementation (libs.androidx.paging.compose)
     implementation(libs.androidx.activity.compose)
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)
     implementation(libs.compose.material3)
-    ksp (libs.androidx.room.compiler)
-
-    // retrofit
-    implementation (libs.retrofit)
-    implementation (libs.retrofit.converter.gson)
-    implementation (libs.retrofit.mock)
-    implementation (libs.logging.interceptor)
 
     implementation(projects.core.models)
     implementation(projects.core.data.network)
