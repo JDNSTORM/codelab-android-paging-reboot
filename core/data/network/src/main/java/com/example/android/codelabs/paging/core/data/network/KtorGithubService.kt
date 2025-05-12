@@ -14,7 +14,7 @@ internal class KtorGithubService(
     ): RepoSearchResponse = client.get("search/repositories?sort=stars"){
         url {
             parameters.apply {
-                append("q", query)
+                append("q", query + IN_QUALIFIER)
                 append("page", page.toString())
                 append("per_page", itemsPerPage.toString())
             }
