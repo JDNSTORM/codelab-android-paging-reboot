@@ -1,10 +1,19 @@
 plugins {
-    alias(libs.plugins.projectJvmLibrary)
+    alias(libs.plugins.kmp)
     alias(libs.plugins.devtoolsKsp)
     alias(libs.plugins.kotlinPluginSerialization)
 }
+kotlin {
+    jvm()
+
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.androidx.room.common)
+            implementation(libs.kotlinx.serialization.json)
+        }
+    }
+}
 dependencies {
-    implementation(libs.androidx.room.common)
-    ksp (libs.androidx.room.compiler)
-    implementation(libs.kotlinx.serialization.json)
+    "kspCommonMainMetadata"(libs.androidx.room.compiler)
+    "kspJvm"(libs.androidx.room.compiler)
 }
