@@ -14,4 +14,9 @@ val localModule = module {
         val db = get<RepoDatabase>()
         db.remoteKeysDao()
     }
+    single {
+        RepoLocalDataSource(
+            db = get()
+        )
+    }
 }
