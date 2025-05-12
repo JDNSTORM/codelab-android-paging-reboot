@@ -5,8 +5,8 @@ import androidx.paging.LoadType
 import com.example.android.codelabs.paging.api.GithubService
 import com.example.android.codelabs.paging.api.IN_QUALIFIER
 import com.example.android.codelabs.paging.db.RepoLocalDataSource
-import com.example.android.codelabs.paging.model.Repo
-import com.example.android.codelabs.paging.model.paging.PagedItems
+import com.example.android.codelabs.paging.core.models.Repo
+import com.example.android.codelabs.paging.core.models.paging.PagedItems
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 

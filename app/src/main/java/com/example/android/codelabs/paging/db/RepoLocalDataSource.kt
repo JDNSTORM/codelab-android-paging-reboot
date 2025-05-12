@@ -3,8 +3,8 @@ package com.example.android.codelabs.paging.db
 import androidx.paging.PagingSource
 import androidx.room.withTransaction
 import com.example.android.codelabs.paging.db.RepoPagingRemoteKeys.Companion.remoteKeys
-import com.example.android.codelabs.paging.model.Repo
-import com.example.android.codelabs.paging.model.paging.PagedItems
+import com.example.android.codelabs.paging.core.models.Repo
+import com.example.android.codelabs.paging.core.models.paging.PagedItems
 import kotlinx.coroutines.flow.first
 
 class RepoLocalDataSource(

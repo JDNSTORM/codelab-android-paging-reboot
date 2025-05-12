@@ -21,7 +21,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.android.codelabs.paging.R
-import com.example.android.codelabs.paging.model.Repo
+import com.example.android.codelabs.paging.core.models.Repo
 import com.example.android.codelabs.paging.ui.theme.AppTheme
 
 @Composable

@@ -4,7 +4,7 @@ import androidx.compose.ui.tooling.preview.PreviewParameterProvider
 import androidx.paging.LoadState
 import androidx.paging.LoadStates
 import androidx.paging.PagingData
-import com.example.android.codelabs.paging.model.Repo
+import com.example.android.codelabs.paging.core.models.Repo
 import com.example.android.codelabs.paging.ui.models.UiModel
 import kotlin.random.Random
 import kotlin.random.nextInt

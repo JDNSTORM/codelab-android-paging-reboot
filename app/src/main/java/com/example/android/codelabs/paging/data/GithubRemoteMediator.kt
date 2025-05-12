@@ -24,7 +24,7 @@ import com.example.android.codelabs.paging.api.GithubService
 import com.example.android.codelabs.paging.api.IN_QUALIFIER
 import com.example.android.codelabs.paging.db.RepoPagingRemoteKeys
 import com.example.android.codelabs.paging.db.RepoLocalDataSource
-import com.example.android.codelabs.paging.model.Repo
+import com.example.android.codelabs.paging.core.models.Repo
 import retrofit2.HttpException
 import java.io.IOException
 

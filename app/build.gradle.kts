@@ -91,4 +91,6 @@ dependencies {
     implementation (libs.retrofit.converter.gson)
     implementation (libs.retrofit.mock)
     implementation (libs.logging.interceptor)
+
+    implementation(projects.core.models)
 }

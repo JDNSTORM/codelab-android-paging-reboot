@@ -5,8 +5,8 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
-import com.example.android.codelabs.paging.model.paging.PagedItems
-import com.example.android.codelabs.paging.model.paging.PagingRemoteKeys
+import com.example.android.codelabs.paging.core.models.paging.PagedItems
+import com.example.android.codelabs.paging.core.models.paging.PagingRemoteKeys
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext

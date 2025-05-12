@@ -1,4 +1,4 @@
-package com.example.android.codelabs.paging.model.paging
+package com.example.android.codelabs.paging.core.models.paging
 
 /**
  * Represents a page of items, along with keys for navigating to previous and next pages, and a key for refreshing the data.

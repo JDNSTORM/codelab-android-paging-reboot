@@ -1,4 +1,4 @@
-package com.example.android.codelabs.paging.model.paging
+package com.example.android.codelabs.paging.core.models.paging
 
 /**
  * An interface for an `Entity` representing the remote keys for a paginated data set.

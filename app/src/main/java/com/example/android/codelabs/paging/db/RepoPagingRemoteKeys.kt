@@ -18,9 +18,9 @@ package com.example.android.codelabs.paging.db
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.android.codelabs.paging.model.Repo
-import com.example.android.codelabs.paging.model.paging.PagedItems
-import com.example.android.codelabs.paging.model.paging.PagingRemoteKeys
+import com.example.android.codelabs.paging.core.models.Repo
+import com.example.android.codelabs.paging.core.models.paging.PagedItems
+import com.example.android.codelabs.paging.core.models.paging.PagingRemoteKeys
 
 @Entity(tableName = "remote_keys")
 data class RepoPagingRemoteKeys(
