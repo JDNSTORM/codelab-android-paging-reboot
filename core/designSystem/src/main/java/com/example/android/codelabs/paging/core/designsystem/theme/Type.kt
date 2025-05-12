@@ -1,4 +1,4 @@
-package com.example.android.codelabs.paging.ui.theme
+package com.example.android.codelabs.paging.core.designsystem.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

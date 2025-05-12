@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.example.android.codelabs.paging.ui.theme.AppTheme
+import com.example.android.codelabs.paging.core.designsystem.theme.AppTheme
 
 @Composable
 fun SeparatorItem(

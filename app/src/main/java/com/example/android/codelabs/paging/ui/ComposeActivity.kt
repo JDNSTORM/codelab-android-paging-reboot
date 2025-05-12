@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.android.codelabs.paging.Injection
-import com.example.android.codelabs.paging.ui.theme.AppTheme
+import com.example.android.codelabs.paging.core.designsystem.theme.AppTheme
 
 class ComposeActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

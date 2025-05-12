@@ -29,7 +29,7 @@ import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import com.example.android.codelabs.paging.R
-import com.example.android.codelabs.paging.ui.theme.AppTheme
+import com.example.android.codelabs.paging.core.designsystem.theme.AppTheme
 import kotlinx.coroutines.delay
 
 @Composable

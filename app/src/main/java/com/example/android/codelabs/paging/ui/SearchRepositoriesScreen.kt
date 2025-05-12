@@ -73,7 +73,7 @@ import com.example.android.codelabs.paging.ui.components.RepoPagingList
 import com.example.android.codelabs.paging.ui.models.UiAction
 import com.example.android.codelabs.paging.ui.models.UiModel
 import com.example.android.codelabs.paging.ui.models.UiState
-import com.example.android.codelabs.paging.ui.theme.AppTheme
+import com.example.android.codelabs.paging.core.designsystem.theme.AppTheme
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.runningReduce
 import kotlinx.coroutines.flow.stateIn

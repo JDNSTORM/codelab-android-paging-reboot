@@ -1,4 +1,4 @@
-package com.example.android.codelabs.paging.ui.theme
+package com.example.android.codelabs.paging.core.designsystem.theme
 
 import androidx.compose.ui.graphics.Color
 

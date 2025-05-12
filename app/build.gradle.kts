@@ -96,4 +96,5 @@ dependencies {
     implementation(projects.core.data.network)
     implementation(projects.core.data.local)
     implementation(projects.core.repositories)
+    implementation(projects.core.designSystem)
 }
