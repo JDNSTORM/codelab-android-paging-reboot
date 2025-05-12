@@ -19,6 +19,8 @@ package com.example.android.codelabs.paging.core.models
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 /**
  * Immutable model class for a Github repo that holds all the information about a repository.
@@ -26,14 +28,32 @@ import com.google.gson.annotations.SerializedName
  * with the serialized name.
  * This class also defines the Room repos table, where the repo [id] is the primary key.
  */
+@Serializable
 @Entity(tableName = "repos")
 data class Repo(
-    @PrimaryKey @field:SerializedName("id") val id: Long,
-    @field:SerializedName("name") val name: String,
-    @field:SerializedName("full_name") val fullName: String,
-    @field:SerializedName("description") val description: String?,
-    @field:SerializedName("html_url") val url: String,
-    @field:SerializedName("stargazers_count") val stars: Int,
-    @field:SerializedName("forks_count") val forks: Int,
-    @field:SerializedName("language") val language: String?
+    @PrimaryKey
+    @SerialName("id")
+    @field:SerializedName("id")
+    val id: Long,
+    @SerialName("name")
+    @field:SerializedName("name")
+    val name: String,
+    @SerialName("full_name")
+    @field:SerializedName("full_name")
+    val fullName: String,
+    @SerialName("description")
+    @field:SerializedName("description")
+    val description: String?,
+    @SerialName("html_url")
+    @field:SerializedName("html_url")
+    val url: String,
+    @SerialName("stargazers_count")
+    @field:SerializedName("stargazers_count")
+    val stars: Int,
+    @SerialName("forks_count")
+    @field:SerializedName("forks_count")
+    val forks: Int,
+    @SerialName("language")
+    @field:SerializedName("language")
+    val language: String?
 )

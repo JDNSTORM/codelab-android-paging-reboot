@@ -33,4 +33,5 @@ plugins {
     alias(libs.plugins.devtoolsKsp) apply false
     alias(libs.plugins.kotlinCompose) apply false
     alias(libs.plugins.kotlinJvm) apply false
+    alias(libs.plugins.kotlinPluginSerialization) apply false
 }

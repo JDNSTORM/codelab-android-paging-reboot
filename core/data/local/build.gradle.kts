@@ -38,6 +38,7 @@ dependencies {
     implementation(libs.androidx.room.paging)
     ksp(libs.androidx.room.compiler)
     implementation(libs.retrofit.converter.gson) // KSP Requires dependency for all libraries annotated to the models
+    implementation(libs.kotlinx.serialization.json)
     implementation(projects.core.models)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
