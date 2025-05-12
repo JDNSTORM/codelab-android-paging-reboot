@@ -15,20 +15,15 @@
  */
 
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.kotlinAndroid)
+    alias(libs.plugins.projectAndroidApplicationCompose)
     alias(libs.plugins.androidxRoom)
     alias(libs.plugins.devtoolsKsp)
-    alias(libs.plugins.kotlinCompose)
 }
 
 android {
     namespace = "com.example.android.codelabs.paging"
-    compileSdk = 35
     defaultConfig {
         applicationId = "com.example.android.codelabs.paging"
-        minSdk = 23
-        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -45,7 +40,6 @@ android {
     }
 
     kotlinOptions {
-        jvmTarget = "17"
         freeCompilerArgs = listOf(
             "-opt-in=kotlin.RequiresOptIn",
             "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
@@ -53,14 +47,8 @@ android {
         )
     }
 
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-
     buildFeatures {
         viewBinding = true
-        compose = true
     }
 }
 
@@ -93,15 +81,9 @@ dependencies {
     implementation (libs.androidx.paging.runtime.ktx)
     implementation (libs.androidx.paging.compose)
     implementation(libs.androidx.activity.compose)
-    implementation(platform(libs.compose.bom))
     implementation(libs.compose.ui)
     implementation(libs.compose.ui.graphics)
-    implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
-    androidTestImplementation(platform(libs.compose.bom))
-    androidTestImplementation(libs.compose.ui.test.junit4)
-    debugImplementation(libs.compose.ui.tooling)
-    debugImplementation(libs.compose.ui.test.manifest)
     ksp (libs.androidx.room.compiler)
 
     // retrofit
