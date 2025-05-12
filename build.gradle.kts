@@ -34,4 +34,7 @@ plugins {
     alias(libs.plugins.kotlinCompose) apply false
     alias(libs.plugins.kotlinJvm) apply false
     alias(libs.plugins.kotlinPluginSerialization) apply false
+    alias(libs.plugins.kmp) apply false
+    alias(libs.plugins.composeMultiplatform) apply false
+    alias(libs.plugins.androidKmpLibrary) apply false
 }
