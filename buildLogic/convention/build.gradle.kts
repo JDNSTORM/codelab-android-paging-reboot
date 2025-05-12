@@ -20,7 +20,11 @@ tasks.compileKotlin {
     }
 }
 dependencies {
-
+    compileOnly(libs.androidToolsBuildGradle)
+    compileOnly(libs.androidToolsCommon)
+    compileOnly(libs.kotlinGradlePlugin)
+    compileOnly(libs.composeCompilerGradlePlugin)
+    compileOnly(libs.kspGradlePlugin)
 }
 gradlePlugin {
     plugins {

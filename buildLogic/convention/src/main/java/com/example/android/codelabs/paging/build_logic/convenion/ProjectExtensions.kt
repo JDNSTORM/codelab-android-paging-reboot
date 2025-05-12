@@ -1,2 +1,18 @@
-package com.example.android.codelabs.paging.convenion
+package com.example.android.codelabs.paging.build_logic.convenion
 
+import com.android.build.api.dsl.CommonExtension
+import org.gradle.api.Project
+import org.gradle.api.artifacts.MinimalExternalModuleDependency
+import org.gradle.api.artifacts.VersionCatalog
+import org.gradle.api.artifacts.VersionCatalogsExtension
+import org.gradle.api.provider.Provider
+import org.gradle.kotlin.dsl.getByType
+
+internal typealias CommonExt = CommonExtension<*, *, *, *, *, *>
+
+internal val Project.libs: VersionCatalog
+    get() = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
+internal operator fun VersionCatalog.get(
+    libraryAlias: String
+): Provider<MinimalExternalModuleDependency> = findLibrary(libraryAlias).get()

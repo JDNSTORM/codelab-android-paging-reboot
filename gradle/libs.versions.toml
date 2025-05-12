@@ -1,5 +1,6 @@
 [versions]
 androidGradle = "8.10.0"
+androidTools = "31.10.0" # Must match androidGradle
 androidxAppcompat = "1.7.0"
 constraintlayout = "2.1.2"
 androidxCore = "1.16.0"
@@ -17,6 +18,14 @@ activityCompose = "1.10.1"
 composeBom = "2025.05.00"
 
 [libraries]
+# Gradle
+androidToolsBuildGradle = { module = "com.android.tools.build:gradle", version.ref = "androidGradle" }
+androidToolsCommon = { group = "com.android.tools", name = "common", version.ref = "androidTools" }
+kotlinGradlePlugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+composeCompilerGradlePlugin = { module = "org.jetbrains.kotlin:compose-compiler-gradle-plugin", version.ref = "kotlin" }
+kspGradlePlugin = { group = "com.google.devtools.ksp", name = "com.google.devtools.ksp.gradle.plugin", version.ref = "ksp" }
+# Gradle ##
+
 androidx-lifecycle-livedata-ktx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewmodel-ktx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "androidxLifecycle" }
 androidx-lifecycle-viewmodel-savedstate = { module = "androidx.lifecycle:lifecycle-viewmodel-savedstate", version.ref = "androidxLifecycle" }
