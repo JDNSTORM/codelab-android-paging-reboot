@@ -1,7 +1,6 @@
 package com.example.android.codelabs.paging.core.data.network
 
 import io.ktor.client.HttpClient
-import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.serialization.kotlinx.json.json
@@ -10,7 +9,7 @@ import org.koin.dsl.module
 
 val networkModule = module {
     single {
-        HttpClient(Android){
+        HttpClient(PlatformEngineFactory){
             expectSuccess = true
             install(ContentNegotiation){
                 json(
