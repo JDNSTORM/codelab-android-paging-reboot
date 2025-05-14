@@ -10,6 +10,7 @@ kotlin {
         commonMain.dependencies {
             implementation(libs.androidx.room.common)
             implementation(libs.kotlinx.serialization.json)
+            api(projects.core.common)
         }
     }
 }
