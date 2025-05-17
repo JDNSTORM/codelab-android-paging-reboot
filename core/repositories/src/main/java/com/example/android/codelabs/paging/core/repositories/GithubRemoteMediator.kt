@@ -24,6 +24,7 @@ import com.example.android.codelabs.paging.core.data.network.GithubService
 import com.example.android.codelabs.paging.core.data.local.RepoPagingRemoteKeys
 import com.example.android.codelabs.paging.core.data.local.RepoLocalDataSource
 import com.example.android.codelabs.paging.core.models.Repo
+import com.example.android.codelabs.paging.core.models.paging.PagedItems
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -97,18 +98,15 @@ class GithubRemoteMediator(
 
             val prevKey = if (page == GITHUB_STARTING_PAGE_INDEX) null else page - 1
             val nextKey = if (endOfPaginationReached) null else page + 1
-            val keys = repos.map { repo ->
-                RepoPagingRemoteKeys(
-                    repoId = repo.id,
-                    prevKey = prevKey,
-                    nextKey = nextKey,
-                    refreshKey = page,
-                    query = query
-                )
-            }
+            val pagedItems = PagedItems(
+                refreshKey = page,
+                prevKey = prevKey,
+                nextKey = nextKey,
+                items = repos
+            )
             localDataSource.insertPagedRepos(
-                repos = repos,
-                keys = keys,
+                queryString = query,
+                pagedRepos = pagedItems,
                 refreshData = loadType == LoadType.REFRESH
             )
 

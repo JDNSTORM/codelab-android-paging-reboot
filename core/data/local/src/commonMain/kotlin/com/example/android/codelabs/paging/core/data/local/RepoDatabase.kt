@@ -29,6 +29,7 @@ abstract class RepoDatabase : RoomDatabase() {
 
     abstract fun reposDao(): RepoDao
     abstract fun remoteKeysDao(): RemoteKeysDao
+    abstract fun repoAndRemoteKeysDao(): RepoAndRemoteKeysDao
 
     companion object {
         internal const val DATABASE_NAME = "Github.db"
