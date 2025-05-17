@@ -25,6 +25,9 @@ dependencies {
     compileOnly(libs.kotlinGradlePlugin)
     compileOnly(libs.composeCompilerGradlePlugin)
     compileOnly(libs.kspGradlePlugin)
+    compileOnly(libs.kmpGradlePlugin)
+    compileOnly(libs.cmpGradlePlugin)
+    compileOnly(libs.androidKmpLibraryGradlePlugin)
 }
 gradlePlugin {
     plugins {
@@ -51,6 +54,10 @@ gradlePlugin {
         register("kmp"){
             id = "project.kmp"
             implementationClass = "KmpConventionPlugin"
+        }
+        register("cmp"){
+            id = "project.cmp"
+            implementationClass = "CmpConventionPlugin"
         }
         register("kmpAndroidLibrary"){
             id = "project.kmp.android.library"

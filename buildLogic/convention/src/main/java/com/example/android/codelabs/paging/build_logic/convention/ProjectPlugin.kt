@@ -13,6 +13,7 @@ internal enum class ProjectPlugin(val id: String) {
     JvmLib("org.jetbrains.kotlin.jvm"),
     Ksp("com.google.devtools.ksp"),
     Compose("org.jetbrains.kotlin.plugin.compose"),
+    ComposeMultiplatform("org.jetbrains.compose"),
     Kmp("org.jetbrains.kotlin.multiplatform"),
     Serialization("org.jetbrains.kotlin.plugin.serialization"),
     AndroidAppConvention(AndroidApplicationConventionPlugin.PLUGIN_ID),
