@@ -13,7 +13,6 @@ class AndroidApplicationConventionPlugin: Plugin<Project> {
         target.run {
             pluginManager.run {
                 apply(ProjectPlugin.AndroidApp.id)
-                apply(ProjectPlugin.KotlinAndroid.id)
             }
 
             extensions.configure<BaseAppModuleExtension> {
