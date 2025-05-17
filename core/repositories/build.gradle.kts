@@ -1,38 +1,36 @@
 plugins {
-    alias(libs.plugins.projectAndroidLibrary)
+    alias(libs.plugins.projectKmpAndroidLibrary)
 }
+kotlin {
+    jvm()
+    androidLibrary {
+        namespace = "com.example.android.codelabs.paging.core.repositories"
 
-android {
-    namespace = "com.example.android.codelabs.paging.core.repositories"
-
-    defaultConfig {
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
-    }
-
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+        withDeviceTestBuilder {
+            sourceSetTreeName = "test"
+        }.configure {
+            instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
     }
-}
 
-dependencies {
-    implementation(libs.androidx.core)
-    implementation(libs.androidx.appcompat)
-    implementation (libs.androidx.paging.runtime.ktx)
-    implementation(libs.retrofit)
-    implementation(projects.core.data.local)
-    implementation(projects.core.data.network)
-    api(projects.core.models)
-    implementation(platform(libs.koin.bom))
-    implementation(libs.koin.core)
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    sourceSets {
+        commonMain.dependencies {
+            implementation (libs.androidx.paging.common)
+            implementation(libs.retrofit)
+            implementation(projects.core.data.local)
+            implementation(projects.core.data.network)
+            api(projects.core.models)
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.core)
+        }
+        jvmTest.dependencies {
+            implementation(libs.junit)
+        }
+        getByName("androidDeviceTest") {
+            dependencies {
+                implementation(libs.androidx.junit)
+                implementation(libs.androidx.espresso.core)
+            }
+        }
+    }
 }

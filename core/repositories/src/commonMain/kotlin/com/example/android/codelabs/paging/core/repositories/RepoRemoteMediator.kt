@@ -1,6 +1,5 @@
 package com.example.android.codelabs.paging.core.repositories
 
-import android.util.Log
 import androidx.paging.LoadType
 import com.example.android.codelabs.paging.core.data.network.GithubService
 import com.example.android.codelabs.paging.core.data.local.RepoLocalDataSource
@@ -8,6 +7,7 @@ import com.example.android.codelabs.paging.core.models.Repo
 import com.example.android.codelabs.paging.core.models.paging.PagedItems
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 
 class RepoRemoteMediator(
     private val query: String,
@@ -36,7 +36,7 @@ class RepoRemoteMediator(
         )
     },
     storeItems = { pagedItems, clearData ->
-        Log.d("RepoRemoteMediator", "Storing Items with Stars: ${pagedItems.items.map { it.stars }.sortedDescending()}")
+        println("RepoRemoteMediator - Storing Items with Stars: ${pagedItems.items.map { it.stars }.sortedDescending()}")
         localDataSource.insertPagedRepos(
             queryString = query,
             pagedRepos = pagedItems,

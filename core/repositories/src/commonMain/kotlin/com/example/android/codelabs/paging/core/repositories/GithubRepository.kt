@@ -16,13 +16,12 @@
 
 package com.example.android.codelabs.paging.core.repositories
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import com.example.android.codelabs.paging.core.data.network.GithubService
 import com.example.android.codelabs.paging.core.data.local.RepoLocalDataSource
+import com.example.android.codelabs.paging.core.data.network.GithubService
 import com.example.android.codelabs.paging.core.models.Repo
 import kotlinx.coroutines.flow.Flow
 
@@ -39,7 +38,6 @@ class GithubRepository(
      * every time we get more data from the network.
      */
     fun getSearchResultStream(query: String): Flow<PagingData<Repo>> {
-        Log.d("GithubRepository", "New query: $query")
 
         val pagingSourceFactory = { localDataSource.reposPagingSource(query) }
 

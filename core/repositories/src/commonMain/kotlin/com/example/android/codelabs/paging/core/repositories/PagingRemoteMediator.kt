@@ -1,6 +1,5 @@
 package com.example.android.codelabs.paging.core.repositories
 
-import android.util.Log
 import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
@@ -9,6 +8,7 @@ import com.example.android.codelabs.paging.core.models.paging.PagedItems
 import com.example.android.codelabs.paging.core.models.paging.PagingRemoteKeys
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.IO
 import kotlinx.coroutines.withContext
 
 /**
@@ -46,7 +46,7 @@ abstract class PagingRemoteMediator<Key: Any, Model : Any, Entity : Any>(
         loadType: LoadType,
         state: PagingState<Key, Model>
     ): MediatorResult = withContext(dispatcher) {
-        Log.d("PagingRemoteMediator", "Load Requested: $loadType")
+        println("PagingRemoteMediator -Load Requested: $loadType")
         val refreshKey = when (loadType) {
             LoadType.REFRESH -> state.anchorPosition?.let { position ->
                 state.closestItemToPosition(position)?.let {
@@ -85,7 +85,7 @@ abstract class PagingRemoteMediator<Key: Any, Model : Any, Entity : Any>(
 
         val isRefresh = loadType == LoadType.REFRESH
         val pageSize = if (isRefresh) state.config.initialLoadSize else state.config.pageSize
-        Log.d("PagingRemoteMediator", "PageSize: $pageSize, PageKey: $refreshKey")
+        println("PagingRemoteMediator -PageSize: $pageSize, PageKey: $refreshKey")
 
         try {
             val pagedItems = fetchList(pageSize, refreshKey)
@@ -107,8 +107,8 @@ abstract class PagingRemoteMediator<Key: Any, Model : Any, Entity : Any>(
         }
     }.also {
         when(it){
-            is MediatorResult.Error -> Log.d("PagingRemoteMediator", "Error(${it.throwable.message})")
-            is MediatorResult.Success -> Log.d("PagingRemoteMediator", "Success(${it.endOfPaginationReached})")
+            is MediatorResult.Error -> println("PagingRemoteMediator - Error(${it.throwable.message})")
+            is MediatorResult.Success -> println("PagingRemoteMediator - Success(${it.endOfPaginationReached})")
         }
     }
 }
