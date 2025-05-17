@@ -4,7 +4,8 @@ import org.koin.dsl.module
 
 val localModule = module {
     single {
-        RepoDatabase.getInstance(get())
+        koinPlatformDatabaseBuilder()
+            .build()
     }
     single {
         val db = get<RepoDatabase>()
