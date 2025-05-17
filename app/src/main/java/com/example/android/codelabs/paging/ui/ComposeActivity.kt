@@ -17,20 +17,7 @@ class ComposeActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AppTheme {
-                KoinContext {
-                    val viewModel = koinViewModel<SearchRepositoriesViewModel>()
-                    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-                    val pagingModels = viewModel.pagingDataFlow.collectAsLazyPagingItems()
-                    Surface {
-                        SearchRepositoriesScreen(
-                            uiState = uiState,
-                            pagingModels = pagingModels,
-                            uiAction = viewModel::uiAction
-                        )
-                    }
-                }
-            }
+            ComposeApp()
         }
     }
 }
