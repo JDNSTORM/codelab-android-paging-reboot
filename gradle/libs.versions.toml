@@ -94,6 +94,8 @@ projectAndroidLibrary = { id = "project.android.library", version = "unspecified
 projectAndroidLibraryCompose = { id = "project.android.library.compose", version = "unspecified" }
 projectJvmLibrary = { id = "project.jvm.library", version = "unspecified" }
 projectKmp = { id = "project.kmp", version = "unspecified" }
+projectKmpAndroidLibrary = { id = "project.kmp.android.library", version = "unspecified" }
+projectKmpAndroidPlatformLibrary = { id = "project.kmp.android.library.platform", version = "unspecified" }
 # Convention Plugins ##
 
 androidApplication = { id = "com.android.application", version.ref = "androidGradle" }

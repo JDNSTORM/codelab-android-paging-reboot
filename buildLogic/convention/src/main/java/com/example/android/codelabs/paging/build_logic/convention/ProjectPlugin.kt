@@ -7,6 +7,7 @@ internal enum class ProjectPlugin(val id: String) {
     KotlinAndroid("org.jetbrains.kotlin.android"),
     AndroidApp("com.android.application"),
     AndroidLib("com.android.library"),
+    AndroidKmpLib("com.android.kotlin.multiplatform.library"),
     AndroidTest("com.android.test"),
     AndroidBase("com.android.base"),
     JvmLib("org.jetbrains.kotlin.jvm"),
@@ -16,4 +17,5 @@ internal enum class ProjectPlugin(val id: String) {
     Serialization("org.jetbrains.kotlin.plugin.serialization"),
     AndroidAppConvention(AndroidApplicationConventionPlugin.PLUGIN_ID),
     AndroidLibConvention(AndroidLibraryConventionPlugin.PLUGIN_ID),
+    KmpConvention(KmpConventionPlugin.PLUGIN_ID),
 }

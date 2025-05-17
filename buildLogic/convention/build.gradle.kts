@@ -52,5 +52,13 @@ gradlePlugin {
             id = "project.kmp"
             implementationClass = "KmpConventionPlugin"
         }
+        register("kmpAndroidLibrary"){
+            id = "project.kmp.android.library"
+            implementationClass = "KmpAndroidLibraryConventionPlugin"
+        }
+        register("kmpAndroidPlatformLibrary"){
+            id = "project.kmp.android.library.platform"
+            implementationClass = "KmpAndroidPlatformLibraryConventionPlugin"
+        }
     }
 }
