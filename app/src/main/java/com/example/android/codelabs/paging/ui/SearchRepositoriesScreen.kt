@@ -66,9 +66,9 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.paging.LoadState
 import androidx.paging.PagingData
-import androidx.paging.compose.LazyPagingItems
-import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.android.codelabs.paging.R
+import com.example.android.codelabs.paging.compose.LazyPagingItems
+import com.example.android.codelabs.paging.compose.collectAsLazyPagingItems
 import com.example.android.codelabs.paging.ui.components.RepoPagingList
 import com.example.android.codelabs.paging.ui.models.UiAction
 import com.example.android.codelabs.paging.ui.models.UiModel

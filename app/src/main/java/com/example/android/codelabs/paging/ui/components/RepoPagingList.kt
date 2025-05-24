@@ -20,7 +20,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.paging.LoadState
-import androidx.paging.compose.LazyPagingItems
+import com.example.android.codelabs.paging.compose.LazyPagingItems
 import com.example.android.codelabs.paging.core.models.Repo
 import com.example.android.codelabs.paging.ui.models.UiModel
 import kotlinx.coroutines.delay

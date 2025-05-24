@@ -4,7 +4,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.paging.compose.collectAsLazyPagingItems
+import com.example.android.codelabs.paging.compose.collectAsLazyPagingItems
 import com.example.android.codelabs.paging.core.designsystem.theme.AppTheme
 import org.koin.compose.KoinContext
 import org.koin.compose.viewmodel.koinViewModel
