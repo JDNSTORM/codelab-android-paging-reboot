@@ -15,10 +15,56 @@
  */
 
 plugins {
+    alias(libs.plugins.projectCmp)
     alias(libs.plugins.projectAndroidApplicationCompose)
-    alias(libs.plugins.kotlinAndroid)
 }
+kotlin {
+    androidTarget()
 
+    sourceSets {
+        commonMain.dependencies {
+            implementation (libs.kotlinx.coroutines.core)
+            implementation (libs.androidx.lifecycle.runtime)
+            implementation (libs.androidx.lifecycle.viewmodel)
+            implementation (libs.androidx.lifecycle.viewmodel.compose)
+            implementation (libs.androidx.lifecycle.viewmodel.savedstate)
+            implementation(compose.ui)
+//            api(compose.ui.graphics)
+            implementation(compose.material3)
+
+            implementation(projects.core.models)
+            implementation(projects.core.data.network)
+            implementation(projects.core.data.local)
+            implementation(projects.core.repositories)
+            implementation(projects.core.designSystem)
+            implementation(projects.pagingCompose)
+            implementation(project.dependencies.platform(libs.koin.bom))
+            implementation(libs.koin.compose.viewmodel)
+        }
+        androidMain.dependencies {
+            implementation(libs.androidx.core)
+            implementation(libs.androidx.appcompat)
+            implementation(libs.material)
+            implementation(libs.androidx.activity.compose)
+            implementation(libs.koin.android)
+            implementation (libs.kotlinx.coroutines.android)
+            implementation (libs.androidx.lifecycle.viewmodel.ktx)
+        }
+        androidInstrumentedTest {
+            dependencies {
+                implementation(libs.androidx.junit)
+                implementation(libs.androidx.espresso.core)
+            }
+        }
+    }
+    compilerOptions {
+        freeCompilerArgs.addAll(
+            "-opt-in=kotlin.RequiresOptIn",
+            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
+            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
+        )
+    }
+}
 android {
     namespace = "com.example.android.codelabs.paging"
     defaultConfig {
@@ -37,40 +83,4 @@ android {
             signingConfig = signingConfigs.findByName("debug")
         }
     }
-
-    kotlinOptions {
-        freeCompilerArgs = listOf(
-            "-opt-in=kotlin.RequiresOptIn",
-            "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi",
-            "-opt-in=androidx.compose.foundation.ExperimentalFoundationApi",
-        )
-    }
-}
-
-dependencies {
-    implementation (libs.kotlinx.coroutines.android)
-    implementation (libs.kotlinx.coroutines.core)
-    implementation (libs.androidx.appcompat)
-    implementation (libs.material)
-
-    // architecture components
-    implementation (libs.androidx.core)
-    implementation (libs.androidx.lifecycle.runtime)
-    implementation (libs.androidx.lifecycle.viewmodel.ktx)
-    implementation (libs.androidx.lifecycle.livedata.ktx)
-    implementation (libs.androidx.lifecycle.viewmodel.savedstate)
-    implementation(libs.androidx.activity.compose)
-    implementation(libs.compose.ui)
-    implementation(libs.compose.ui.graphics)
-    implementation(libs.compose.material3)
-
-    implementation(projects.core.models)
-    implementation(projects.core.data.network)
-    implementation(projects.core.data.local)
-    implementation(projects.core.repositories)
-    implementation(projects.core.designSystem)
-    implementation(projects.pagingCompose)
-    implementation(platform(libs.koin.bom))
-    implementation(libs.koin.android)
-    implementation(libs.koin.compose.viewmodel)
 }
