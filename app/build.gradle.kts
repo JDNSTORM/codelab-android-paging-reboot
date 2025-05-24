@@ -31,6 +31,7 @@ kotlin {
             implementation(compose.ui)
 //            api(compose.ui.graphics)
             implementation(compose.material3)
+            implementation(compose.components.resources)
 
             implementation(projects.core.models)
             implementation(projects.core.data.network)

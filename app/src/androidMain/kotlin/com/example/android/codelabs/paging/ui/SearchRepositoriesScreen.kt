@@ -57,7 +57,6 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
 import androidx.compose.ui.tooling.preview.Preview
@@ -74,10 +73,15 @@ import com.example.android.codelabs.paging.ui.models.UiAction
 import com.example.android.codelabs.paging.ui.models.UiModel
 import com.example.android.codelabs.paging.ui.models.UiState
 import com.example.android.codelabs.paging.core.designsystem.theme.AppTheme
+import githubrepoviewer.app.generated.resources.Res
+import githubrepoviewer.app.generated.resources.no_results
+import githubrepoviewer.app.generated.resources.retry
+import githubrepoviewer.app.generated.resources.search_hint
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.runningReduce
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.jetbrains.compose.resources.stringResource
 import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -249,7 +253,7 @@ fun SearchRepositoriesScreen(
                 },
                 label = {
                     Text(
-                        text = stringResource(R.string.search_hint)
+                        text = stringResource(Res.string.search_hint)
                     )
                 },
                 singleLine = true,
@@ -336,7 +340,7 @@ fun SearchRepositoriesScreen(
                     exit = fadeOut()
                 ) {
                     Text(
-                        text = stringResource(R.string.no_results),
+                        text = stringResource(Res.string.no_results),
                         style = MaterialTheme.typography.headlineSmall
                     )
                 }
@@ -350,7 +354,7 @@ fun SearchRepositoriesScreen(
                         shape = MaterialTheme.shapes.extraSmall
                     ) {
                         Text(
-                            text = stringResource(R.string.retry).uppercase()
+                            text = stringResource(Res.string.retry).uppercase()
                         )
                     }
                 }

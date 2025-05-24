@@ -16,13 +16,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import com.example.android.codelabs.paging.R
 import com.example.android.codelabs.paging.core.models.Repo
 import com.example.android.codelabs.paging.core.designsystem.theme.AppTheme
+import githubrepoviewer.app.generated.resources.Res
+import githubrepoviewer.app.generated.resources.ic_git_branch
+import githubrepoviewer.app.generated.resources.ic_star
+import githubrepoviewer.app.generated.resources.language
+import org.jetbrains.compose.resources.painterResource
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun RepoItem(
@@ -61,7 +65,7 @@ fun RepoItem(
         ){
             repo.language?.let {
                 Text(
-                    text = stringResource(R.string.language, it),
+                    text = stringResource(Res.string.language, it),
                     style = MaterialTheme.typography.bodyLarge,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
@@ -70,7 +74,7 @@ fun RepoItem(
                 modifier = Modifier.weight(1f),
             )
             Icon(
-                painter = painterResource(R.drawable.ic_star),
+                painter = painterResource(Res.drawable.ic_star),
                 contentDescription = null
             )
             Text(
@@ -79,7 +83,7 @@ fun RepoItem(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Icon(
-                painter = painterResource(R.drawable.ic_git_branch),
+                painter = painterResource(Res.drawable.ic_git_branch),
                 contentDescription = null
             )
             Text(

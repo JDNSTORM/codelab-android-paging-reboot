@@ -23,14 +23,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
-import com.example.android.codelabs.paging.R
 import com.example.android.codelabs.paging.core.designsystem.theme.AppTheme
+import githubrepoviewer.app.generated.resources.Res
+import githubrepoviewer.app.generated.resources.retry
 import kotlinx.coroutines.delay
+import org.jetbrains.compose.resources.stringResource
 
 @Composable
 fun LoadStateFooterItem(
@@ -66,7 +67,7 @@ fun LoadStateFooterItem(
                         shape = MaterialTheme.shapes.extraSmall
                     ) {
                         Text(
-                            text = stringResource(R.string.retry).uppercase()
+                            text = stringResource(Res.string.retry).uppercase()
                         )
                     }
                 }
