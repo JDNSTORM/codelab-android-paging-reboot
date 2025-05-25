@@ -1,8 +1,5 @@
 package com.example.android.codelabs.paging.ui
 
-import android.content.Intent
-import android.util.Log
-import androidx.activity.compose.LocalActivity
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
@@ -57,22 +54,19 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardCapitalization
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
-import androidx.core.net.toUri
 import androidx.paging.LoadState
 import androidx.paging.PagingData
-import com.example.android.codelabs.paging.R
 import com.example.android.codelabs.paging.compose.LazyPagingItems
 import com.example.android.codelabs.paging.compose.collectAsLazyPagingItems
+import com.example.android.codelabs.paging.core.designsystem.theme.AppTheme
 import com.example.android.codelabs.paging.ui.components.RepoPagingList
 import com.example.android.codelabs.paging.ui.models.UiAction
 import com.example.android.codelabs.paging.ui.models.UiModel
 import com.example.android.codelabs.paging.ui.models.UiState
-import com.example.android.codelabs.paging.core.designsystem.theme.AppTheme
 import githubrepoviewer.app.generated.resources.Res
 import githubrepoviewer.app.generated.resources.no_results
 import githubrepoviewer.app.generated.resources.retry
@@ -82,6 +76,8 @@ import kotlinx.coroutines.flow.runningReduce
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.jetbrains.compose.ui.tooling.preview.PreviewParameter
 import kotlin.math.absoluteValue
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -101,7 +97,7 @@ fun SearchRepositoriesScreen(
         }
     }
     val lazyListState = rememberSaveable(uiState.query, saver = LazyListState.Saver) {
-        Log.d("SearchRepositoriesScreen", "LazyListState Initialized for ${uiState.query}")
+        println("SearchRepositoriesScreen - LazyListState Initialized for ${uiState.query}")
         LazyListState()
     }
 
@@ -110,7 +106,7 @@ fun SearchRepositoriesScreen(
             lazyListState.firstVisibleItemIndex
         }.runningReduce { previousIndex, nextIndex ->
             val distance = previousIndex.minus(nextIndex).absoluteValue
-            if (distance > 10) Log.d("SearchRepositoriesScreen", "List Jumped from $previousIndex to $nextIndex")
+            if (distance > 10) println("SearchRepositoriesScreen - List Jumped from $previousIndex to $nextIndex")
             nextIndex
         }.stateIn(this)
     }
@@ -131,7 +127,7 @@ fun SearchRepositoriesScreen(
 //        if (!shouldScrollToTop) return@LaunchedEffect
 //        lazyListState.scrollToItem(0)
 //    }
-    val activity = LocalActivity.current
+    val uriHandler = LocalUriHandler.current
     val hasScrolled by remember(lazyListState) {
         derivedStateOf {
             lazyListState.firstVisibleItemIndex > 0
@@ -328,10 +324,7 @@ fun SearchRepositoriesScreen(
                     pagingModels = pagingModels,
                     lazyListState = lazyListState,
                     onRepoClick = { repo ->
-                        activity?.let {
-                            val intent = Intent(Intent.ACTION_VIEW, repo.url.toUri())
-                            it.startActivity(intent)
-                        }
+                        uriHandler.openUri(repo.url)
                     }
                 )
                 androidx.compose.animation.AnimatedVisibility(

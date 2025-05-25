@@ -8,9 +8,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.example.android.codelabs.paging.core.designsystem.theme.AppTheme
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun SeparatorItem(
@@ -29,12 +28,6 @@ fun SeparatorItem(
     )
 }
 
-@PreviewLightDark
+@Preview
 @Composable
-fun SeparatorItemPreview() {
-    AppTheme {
-        SeparatorItem(
-            description = "10000+ stars"
-        )
-    }
-}
+expect fun SeparatorItemPreview()

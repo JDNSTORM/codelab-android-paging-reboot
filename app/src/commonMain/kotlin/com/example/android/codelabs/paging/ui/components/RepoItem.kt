@@ -16,9 +16,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.PreviewLightDark
 import androidx.compose.ui.unit.dp
-import com.example.android.codelabs.paging.R
 import com.example.android.codelabs.paging.core.models.Repo
 import com.example.android.codelabs.paging.core.designsystem.theme.AppTheme
 import githubrepoviewer.app.generated.resources.Res
@@ -27,6 +25,7 @@ import githubrepoviewer.app.generated.resources.ic_star
 import githubrepoviewer.app.generated.resources.language
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
+import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
 fun RepoItem(
@@ -95,27 +94,6 @@ fun RepoItem(
     }
 }
 
-@PreviewLightDark
+@Preview
 @Composable
-fun RepoItemPreview() {
-    val repo = remember {
-        Repo(
-            id = 0,
-            name = "android-architecture",
-            fullName = "android-architecture",
-            description = "A collection of samples to discuss and showcase different architectural tools and patterns for Android apps.",
-            url = "",
-            stars = 30,
-            forks = 30,
-            language = "en-us"
-        )
-    }
-
-    AppTheme {
-        Surface {
-            RepoItem(
-                repo = repo
-            )
-        }
-    }
-}
+expect fun RepoItemPreview()

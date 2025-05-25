@@ -1,3 +1,5 @@
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+
 /*
  * Copyright (C) 2018 The Android Open Source Project
  *
@@ -19,12 +21,14 @@ plugins {
     alias(libs.plugins.projectAndroidApplicationCompose)
 }
 kotlin {
+    jvm("desktop")
     androidTarget()
 
     sourceSets {
+        val desktopMain by getting
         commonMain.dependencies {
             implementation (libs.kotlinx.coroutines.core)
-            implementation (libs.androidx.lifecycle.runtime)
+            implementation (libs.androidx.lifecycle.runtime.compose)
             implementation (libs.androidx.lifecycle.viewmodel)
             implementation (libs.androidx.lifecycle.viewmodel.compose)
             implementation (libs.androidx.lifecycle.viewmodel.savedstate)
@@ -32,6 +36,7 @@ kotlin {
 //            api(compose.ui.graphics)
             implementation(compose.material3)
             implementation(compose.components.resources)
+            implementation(compose.components.uiToolingPreview)
 
             implementation(projects.core.models)
             implementation(projects.core.data.network)
@@ -51,6 +56,10 @@ kotlin {
             implementation (libs.kotlinx.coroutines.android)
             implementation (libs.androidx.lifecycle.viewmodel.ktx)
         }
+        desktopMain.dependencies {
+            implementation(compose.desktop.currentOs)
+            implementation(libs.kotlinx.coroutines.swing)
+        }
         androidInstrumentedTest {
             dependencies {
                 implementation(libs.androidx.junit)
@@ -66,10 +75,12 @@ kotlin {
         )
     }
 }
+
+private val applicationPackageName = "com.example.android.codelabs.paging"
 android {
-    namespace = "com.example.android.codelabs.paging"
+    namespace = applicationPackageName
     defaultConfig {
-        applicationId = "com.example.android.codelabs.paging"
+        applicationId = applicationPackageName
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -82,6 +93,17 @@ android {
                 "proguard-rules.pro"
             )
             signingConfig = signingConfigs.findByName("debug")
+        }
+    }
+}
+compose.desktop {
+    application {
+        mainClass = "com.example.android.codelabs.paging.MainKt"
+
+        nativeDistributions {
+            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Exe)
+            packageName = applicationPackageName
+            packageVersion = "1.0.0"
         }
     }
 }

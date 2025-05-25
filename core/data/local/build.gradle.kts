@@ -20,6 +20,7 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             implementation(libs.androidx.room.runtime)
+            implementation(libs.androidx.sqlite.bundled)
 //            implementation(libs.androidx.room.ktx)
             implementation(libs.androidx.room.paging)
             implementation(libs.kotlinx.serialization.json)
