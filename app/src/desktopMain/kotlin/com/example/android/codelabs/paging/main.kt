@@ -2,11 +2,13 @@ package com.example.android.codelabs.paging
 
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
-import androidx.lifecycle.viewmodel.compose.LocalViewModelStoreOwner
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.android.codelabs.paging.ui.ComposeApp
 import org.koin.compose.KoinApplication
 
-fun main() { //FIXME: CreationExtras must have a value by `SAVED_STATE_REGISTRY_OWNER_KEY`
+fun main() {
     application {
         KoinApplication(
             application = {
@@ -17,8 +19,14 @@ fun main() { //FIXME: CreationExtras must have a value by `SAVED_STATE_REGISTRY_
                 onCloseRequest = ::exitApplication,
                 title = "Paging"
             ) {
-                LocalViewModelStoreOwner
-                ComposeApp()
+                NavHost( //Needed to provide `SAVED_STATE_REGISTRY_OWNER_KEY`
+                    navController = rememberNavController(),
+                    startDestination = "Main"
+                ) {
+                    composable("Main"){
+                        ComposeApp()
+                    }
+                }
             }
         }
     }
