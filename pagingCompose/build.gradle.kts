@@ -11,11 +11,11 @@ kotlin {
     sourceSets {
         androidMain.dependencies {
             implementation(libs.androidx.paging.compose)
-            api(libs.compose.foundation)
         }
         commonMain.dependencies {
             api(libs.androidx.paging.common)
             api(libs.kotlinx.coroutines.core)
+            api(compose.foundation)
         }
     }
 }
