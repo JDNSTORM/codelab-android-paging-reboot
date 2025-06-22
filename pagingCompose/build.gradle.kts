@@ -1,3 +1,5 @@
+import com.example.android.codelabs.paging.build_logic.convention.kmp_extensions.iosTarget
+
 plugins {
     alias(libs.plugins.projectKmpAndroidLibrary)
     alias(libs.plugins.projectCmp)
@@ -7,6 +9,7 @@ kotlin {
     androidLibrary {
         namespace = "com.example.android.codelabs.paging.compose"
     }
+    iosTarget("pagingComposeKit")
     applyDefaultHierarchyTemplate()
 
     sourceSets {
@@ -22,6 +25,9 @@ kotlin {
             api(compose.foundation)
         }
         jvmMain {
+            dependsOn(nonAndroidMain)
+        }
+        iosMain {
             dependsOn(nonAndroidMain)
         }
     }
