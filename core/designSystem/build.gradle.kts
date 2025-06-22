@@ -1,3 +1,5 @@
+import com.example.android.codelabs.paging.build_logic.convention.kmp_extensions.iosTarget
+
 plugins {
     alias(libs.plugins.projectKmpAndroidLibrary)
     alias(libs.plugins.projectCmp)
@@ -13,6 +15,7 @@ kotlin {
             instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
     }
+    iosTarget("coreDesignSystemKit")
 
     sourceSets {
         val desktopMain by getting
