@@ -19,8 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
-import githubrepoviewer.app.generated.resources.Res
-import githubrepoviewer.app.generated.resources.retry
+import githubrepoviewer.composeapp.generated.resources.Res
+import githubrepoviewer.composeapp.generated.resources.retry
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
 

@@ -17,10 +17,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.android.codelabs.paging.core.models.Repo
-import githubrepoviewer.app.generated.resources.Res
-import githubrepoviewer.app.generated.resources.ic_git_branch
-import githubrepoviewer.app.generated.resources.ic_star
-import githubrepoviewer.app.generated.resources.language
+import githubrepoviewer.composeapp.generated.resources.Res
+import githubrepoviewer.composeapp.generated.resources.ic_git_branch
+import githubrepoviewer.composeapp.generated.resources.ic_star
+import githubrepoviewer.composeapp.generated.resources.language
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.resources.stringResource
 import org.jetbrains.compose.ui.tooling.preview.Preview

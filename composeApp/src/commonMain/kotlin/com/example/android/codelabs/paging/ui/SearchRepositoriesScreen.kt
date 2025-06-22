@@ -67,10 +67,10 @@ import com.example.android.codelabs.paging.ui.components.RepoPagingList
 import com.example.android.codelabs.paging.ui.models.UiAction
 import com.example.android.codelabs.paging.ui.models.UiModel
 import com.example.android.codelabs.paging.ui.models.UiState
-import githubrepoviewer.app.generated.resources.Res
-import githubrepoviewer.app.generated.resources.no_results
-import githubrepoviewer.app.generated.resources.retry
-import githubrepoviewer.app.generated.resources.search_hint
+import githubrepoviewer.composeapp.generated.resources.Res
+import githubrepoviewer.composeapp.generated.resources.no_results
+import githubrepoviewer.composeapp.generated.resources.retry
+import githubrepoviewer.composeapp.generated.resources.search_hint
 import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.runningReduce
 import kotlinx.coroutines.flow.stateIn
