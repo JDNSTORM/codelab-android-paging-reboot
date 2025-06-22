@@ -1,10 +1,6 @@
 package com.example.android.codelabs.paging.ui.components
 
-import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
-import com.example.android.codelabs.paging.core.designsystem.theme.AppTheme
-import com.example.android.codelabs.paging.core.models.Repo
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable

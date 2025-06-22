@@ -17,40 +17,5 @@ import kotlinx.coroutines.delay
 @PreviewLightDark
 @Composable
 actual fun LoadStateFooterItemPreview() {
-    val errorState = remember {
-        LoadState.Error(
-            Exception("Request Timeout")
-        )
-    }
-    var isLoading by remember {
-        mutableStateOf(true)
-    }
-    LaunchedEffect(isLoading) {
-        if (!isLoading) return@LaunchedEffect
-        delay(3000)
-        isLoading = false
-    }
-    val loadState by remember {
-        derivedStateOf {
-            if(isLoading) LoadState.Loading
-            else errorState
-        }
-    }
-    AppTheme {
-        Surface {
-            Column {
-                LoadStateFooterItem(
-                    state = loadState
-                ) {
-                    isLoading = true
-                }
-                LoadStateFooterItem(
-                    state = LoadState.Loading
-                ) { }
-                LoadStateFooterItem(
-                    state = errorState
-                ) { }
-            }
-        }
-    }
+    LoadStateFooterItemPreviewWrapper()
 }

@@ -1,3 +1,4 @@
+import com.example.android.codelabs.paging.build_logic.convention.kmp_extensions.iosTarget
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
 
 /*
@@ -23,6 +24,10 @@ plugins {
 kotlin {
     jvm("desktop")
     androidTarget()
+    iosTarget(
+        xcfName = "composeApp",
+        static = true
+    )
 
     sourceSets {
         val desktopMain by getting

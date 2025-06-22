@@ -12,24 +12,5 @@ import org.jetbrains.compose.ui.tooling.preview.Preview
 @Composable
 @Preview
 actual fun RepoItemPreview() {
-    val repo = remember {
-        Repo(
-            id = 0,
-            name = "android-architecture",
-            fullName = "android-architecture",
-            description = "A collection of samples to discuss and showcase different architectural tools and patterns for Android apps.",
-            url = "",
-            stars = 30,
-            forks = 30,
-            language = "en-us"
-        )
-    }
-
-    AppTheme {
-        Surface {
-            RepoItem(
-                repo = repo
-            )
-        }
-    }
+    RepoItemPreviewWrapper()
 }

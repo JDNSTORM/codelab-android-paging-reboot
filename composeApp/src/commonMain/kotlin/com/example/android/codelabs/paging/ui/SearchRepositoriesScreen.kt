@@ -173,9 +173,7 @@ fun SearchRepositoriesScreen(
         }
     }
     LaunchedEffect(errorState) {
-        val errorMessage = errorState?.error?.let {
-            it.localizedMessage ?: it.message
-        }?: return@LaunchedEffect
+        val errorMessage = errorState?.error?.message ?: return@LaunchedEffect
         swipeToDismissBoxState.reset()
         snackbarHostState.showSnackbar(
             message = errorMessage

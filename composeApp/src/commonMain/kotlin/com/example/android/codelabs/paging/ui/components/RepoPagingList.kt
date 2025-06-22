@@ -25,8 +25,10 @@ import com.example.android.codelabs.paging.core.models.Repo
 import com.example.android.codelabs.paging.ui.models.UiModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.runningReduce
-import java.util.UUID
+import kotlin.uuid.ExperimentalUuidApi
+import kotlin.uuid.Uuid
 
+@OptIn(ExperimentalUuidApi::class)
 @Composable
 fun RepoPagingList(
     modifier: Modifier = Modifier,
@@ -44,7 +46,7 @@ fun RepoPagingList(
         }
     }.collectAsState(false)
     val appendingKey = rememberSaveable {
-        UUID.randomUUID().toString()
+        Uuid.random().toString()
     }
     LazyColumn (
         modifier = modifier,
