@@ -1,6 +1,9 @@
 package com.example.android.codelabs.paging.build_logic.convention.kmp_extensions
 
 import org.gradle.api.Action
+import org.gradle.api.artifacts.MinimalExternalModuleDependency
+import org.gradle.api.provider.Provider
+import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithSimulatorTests
@@ -38,4 +41,24 @@ fun KotlinMultiplatformExtension.iosTarget(
             isStatic = static
         }
     }
+}
+
+/**
+ * Adds KSP (Kotlin Symbol Processing) dependencies for all configured iOS targets.
+ *
+ * This function is an extension for `DependencyHandlerScope` and is typically used within a
+ * `dependencies` block in a Gradle build script. It applies the provided KSP dependency
+ * to the following iOS target-specific KSP configurations:
+ * - `kspIosX64`
+ * - `kspIosArm64`
+ * - `kspIosSimulatorArm64`
+ *
+ * This ensures that KSP runs for each of the iOS targets defined by the `iosTarget` function.
+ *
+ * @param provider A `Provider` for the KSP dependency artifact (e.g., `libs.ksp.compiler`).
+ */
+fun DependencyHandlerScope.kspIOS(provider: Provider<MinimalExternalModuleDependency>){
+    "kspIosX64"(provider)
+    "kspIosArm64"(provider)
+    "kspIosSimulatorArm64"(provider)
 }
