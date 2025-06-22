@@ -27,7 +27,7 @@ import kotlinx.coroutines.flow.filterNotNull
  * @sample androidx.paging.compose.samples.PagingPreview
  * @param T the type of value used by [PagingData].
  */
-class JvmLazyPagingItems<T : Any>
+class NonAndroidLazyPagingItems<T : Any>
 internal constructor(
     /** the [Flow] object which contains a stream of [PagingData] elements. */
     private val flow: Flow<PagingData<T>>

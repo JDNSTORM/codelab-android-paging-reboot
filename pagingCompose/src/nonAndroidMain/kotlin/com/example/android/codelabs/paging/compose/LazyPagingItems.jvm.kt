@@ -12,7 +12,7 @@ import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
 actual class LazyPagingItems<T : Any>(
-    private val jvmLazyPagingItems: JvmLazyPagingItems<T>
+    private val nonAndroidLazyPagingItems: NonAndroidLazyPagingItems<T>
 ) {
     /**
      * Contains the immutable [ItemSnapshotList] of currently presented items, including any
@@ -20,11 +20,11 @@ actual class LazyPagingItems<T : Any>(
      * will not trigger any loads. Use [get] to achieve such behavior.
      */
     actual val itemSnapshotList: ItemSnapshotList<T>
-        get() = jvmLazyPagingItems.itemSnapshotList
+        get() = nonAndroidLazyPagingItems.itemSnapshotList
     actual val loadState: CombinedLoadStates
-        get() = jvmLazyPagingItems.loadState
+        get() = nonAndroidLazyPagingItems.loadState
     actual val itemCount: Int
-        get() = jvmLazyPagingItems.itemCount
+        get() = nonAndroidLazyPagingItems.itemCount
 
     /**
      * Returns the presented item at the specified position, notifying Paging of the item access to
@@ -32,7 +32,7 @@ actual class LazyPagingItems<T : Any>(
      *
      * @see peek
      */
-    actual operator fun get(index: Int): T? = jvmLazyPagingItems[index]
+    actual operator fun get(index: Int): T? = nonAndroidLazyPagingItems[index]
 
     /**
      * Returns the presented item at the specified position, without notifying Paging of the item
@@ -41,7 +41,7 @@ actual class LazyPagingItems<T : Any>(
      * @param index Index of the presented item to return, including placeholders.
      * @return The presented item at position [index], `null` if it is a placeholder
      */
-    actual fun peek(index: Int): T? = jvmLazyPagingItems.peek(index)
+    actual fun peek(index: Int): T? = nonAndroidLazyPagingItems.peek(index)
 
     /**
      * Retry any failed load requests that would result in a [LoadState.Error] update to this
@@ -54,7 +54,7 @@ actual class LazyPagingItems<T : Any>(
      * * [PagingSource.load] returning [PagingSource.LoadResult.Error]
      * * [RemoteMediator.load] returning [RemoteMediator.MediatorResult.Error]
      */
-    actual fun retry() = jvmLazyPagingItems.retry()
+    actual fun retry() = nonAndroidLazyPagingItems.retry()
 
     /**
      * Refresh the data presented by this [LazyPagingItems].
@@ -70,7 +70,7 @@ actual class LazyPagingItems<T : Any>(
      *
      * @see PagingSource.invalidate
      */
-    actual fun refresh() = jvmLazyPagingItems.refresh()
+    actual fun refresh() = nonAndroidLazyPagingItems.refresh()
 
 }
 
@@ -87,22 +87,22 @@ actual class LazyPagingItems<T : Any>(
 actual fun <T : Any> Flow<PagingData<T>>.collectAsLazyPagingItems(
     context: CoroutineContext
 ): LazyPagingItems<T> {
-    val jvmLazyPagingItems = remember(this) { JvmLazyPagingItems(this) }
-    LaunchedEffect(jvmLazyPagingItems) {
+    val nonAndroidLazyPagingItems = remember(this) { NonAndroidLazyPagingItems(this) }
+    LaunchedEffect(nonAndroidLazyPagingItems) {
         if (context == EmptyCoroutineContext) {
-            jvmLazyPagingItems.collectPagingData()
+            nonAndroidLazyPagingItems.collectPagingData()
         } else {
-            withContext(context) { jvmLazyPagingItems.collectPagingData() }
+            withContext(context) { nonAndroidLazyPagingItems.collectPagingData() }
         }
     }
-    LaunchedEffect(jvmLazyPagingItems) {
+    LaunchedEffect(nonAndroidLazyPagingItems) {
         if (context == EmptyCoroutineContext) {
-            jvmLazyPagingItems.collectLoadState()
+            nonAndroidLazyPagingItems.collectLoadState()
         } else {
-            withContext(context) { jvmLazyPagingItems.collectLoadState() }
+            withContext(context) { nonAndroidLazyPagingItems.collectLoadState() }
         }
     }
-    return remember(jvmLazyPagingItems) {
-        LazyPagingItems(jvmLazyPagingItems)
+    return remember(nonAndroidLazyPagingItems) {
+        LazyPagingItems(nonAndroidLazyPagingItems)
     }
 }

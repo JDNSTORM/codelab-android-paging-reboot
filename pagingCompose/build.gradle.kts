@@ -7,8 +7,12 @@ kotlin {
     androidLibrary {
         namespace = "com.example.android.codelabs.paging.compose"
     }
+    applyDefaultHierarchyTemplate()
 
     sourceSets {
+        val nonAndroidMain by creating {
+            dependsOn(commonMain.get())
+        }
         androidMain.dependencies {
             implementation(libs.androidx.paging.compose)
         }
@@ -16,6 +20,9 @@ kotlin {
             api(libs.androidx.paging.common)
             api(libs.kotlinx.coroutines.core)
             api(compose.foundation)
+        }
+        jvmMain {
+            dependsOn(nonAndroidMain)
         }
     }
 }
