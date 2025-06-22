@@ -1,3 +1,5 @@
+import com.example.android.codelabs.paging.build_logic.convention.kmp_extensions.iosTarget
+
 plugins {
     alias(libs.plugins.projectKmpAndroidLibrary)
 }
@@ -12,11 +14,14 @@ kotlin {
             instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
     }
+    iosTarget("coreRepositoriesKit")
 
     sourceSets {
+        androidMain.dependencies {
+            implementation(libs.retrofit)
+        }
         commonMain.dependencies {
             implementation (libs.androidx.paging.common)
-            implementation(libs.retrofit)
             implementation(projects.core.data.local)
             implementation(projects.core.data.network)
             api(projects.core.models)
