@@ -16,6 +16,7 @@
 
 package com.example.android.codelabs.paging.core.data.local
 
+import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.android.codelabs.paging.core.models.Repo
@@ -25,6 +26,7 @@ import com.example.android.codelabs.paging.core.models.Repo
     version = 1,
     exportSchema = false
 )
+@ConstructedBy(RepoDatabaseConstructor::class)
 abstract class RepoDatabase : RoomDatabase() {
 
     abstract fun reposDao(): RepoDao
@@ -35,3 +37,4 @@ abstract class RepoDatabase : RoomDatabase() {
         internal const val DATABASE_NAME = "Github.db"
     }
 }
+

@@ -5,6 +5,7 @@ import org.gradle.api.artifacts.MinimalExternalModuleDependency
 import org.gradle.api.provider.Provider
 import org.gradle.kotlin.dsl.DependencyHandlerScope
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTargetWithSimulatorTests
 
@@ -29,7 +30,8 @@ fun KotlinMultiplatformExtension.iosTarget(
     static: Boolean = false,
     configureX64: Action<KotlinNativeTargetWithSimulatorTests> = Action {  },
     configureArm64: Action<KotlinNativeTarget> = Action {  },
-    configureSimulatorArm64: Action<KotlinNativeTargetWithSimulatorTests> = Action {  }
+    configureSimulatorArm64: Action<KotlinNativeTargetWithSimulatorTests> = Action {  },
+    onFramework: (Framework) -> Unit = {}
 ){
     listOf(
         iosX64(configure = configureX64),
@@ -39,6 +41,7 @@ fun KotlinMultiplatformExtension.iosTarget(
         target.binaries.framework {
             baseName = xcfName
             isStatic = static
+            onFramework(this)
         }
     }
 }

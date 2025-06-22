@@ -1,3 +1,8 @@
+import com.example.android.codelabs.paging.build_logic.convention.kmp_extensions.iosTarget
+import com.example.android.codelabs.paging.build_logic.convention.kmp_extensions.kspIOS
+import org.jetbrains.kotlin.gradle.plugin.mpp.Framework
+import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinNativeTarget
+
 plugins {
     alias(libs.plugins.projectKmpAndroidLibrary)
     alias(libs.plugins.androidxRoom)
@@ -16,6 +21,12 @@ kotlin {
             instrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         }
     }
+    iosTarget(
+        xcfName = "coreDataLocalKit",
+        onFramework = {
+            it.nativeSqlite()
+        }
+    )
 
     sourceSets {
         commonMain.dependencies {
@@ -51,6 +62,7 @@ dependencies {
     "kspCommonMainMetadata"(libs.androidx.room.compiler)
     "kspJvm"(libs.androidx.room.compiler)
     "kspAndroid"(libs.androidx.room.compiler)
+    kspIOS(libs.androidx.room.compiler)
 }
 ksp {
     arg("room.generateKotlin", "true")
@@ -58,4 +70,9 @@ ksp {
 
 room {
     schemaDirectory("$projectDir/schemas")
+}
+
+fun Framework.nativeSqlite(){
+    // Required when using NativeSQLiteDriver
+    linkerOpts.add("-lsqlite3")
 }
