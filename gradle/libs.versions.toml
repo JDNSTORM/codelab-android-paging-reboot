@@ -23,7 +23,7 @@ composeMultiplatform = "1.8.2"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-koinBom = "4.0.2"
+koinBom = "4.1.0"
 ktor = "2.3.11"
 kotlinx-serialization-json = "1.8.1"
 
