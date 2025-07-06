@@ -101,14 +101,18 @@ android {
         }
     }
 }
-compose.desktop {
-    application {
-        mainClass = "com.example.android.codelabs.paging.MainKt"
-
-        nativeDistributions {
-            targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Exe)
-            packageName = applicationPackageName
-            packageVersion = "1.0.0"
+compose {
+    resources {
+        publicResClass = true
+    }
+    desktop {
+        application {
+            mainClass = "com.example.android.codelabs.paging.MainKt"
+            nativeDistributions {
+                targetFormats(TargetFormat.Dmg, TargetFormat.Msi, TargetFormat.Exe)
+                packageName = applicationPackageName
+                packageVersion = "1.0.0"
+            }
         }
     }
 }
