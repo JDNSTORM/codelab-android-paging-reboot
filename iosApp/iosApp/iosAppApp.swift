@@ -6,9 +6,14 @@
 //
 
 import SwiftUI
+import composeApp
 
 @main
 struct iosAppApp: App {
+    init () {
+        AppInitializerKt.initializeApp()
+    }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()

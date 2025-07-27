@@ -71,6 +71,9 @@ kotlin {
                 implementation(libs.androidx.espresso.core)
             }
         }
+        iosMain.dependencies {
+            implementation(libs.jetbrains.navigation.compose)
+        }
     }
     compilerOptions {
         freeCompilerArgs.addAll(
