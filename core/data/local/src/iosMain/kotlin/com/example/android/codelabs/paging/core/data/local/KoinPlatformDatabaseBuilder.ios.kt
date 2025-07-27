@@ -2,6 +2,7 @@ package com.example.android.codelabs.paging.core.data.local
 
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import kotlinx.cinterop.ExperimentalForeignApi
 import org.koin.core.scope.Scope
 import platform.Foundation.NSDocumentDirectory
@@ -17,7 +18,7 @@ internal actual fun Scope.koinPlatformDatabaseBuilder(): RoomDatabase.Builder<Re
     }
     return Room.databaseBuilder<RepoDatabase>(
         name = dbFilePath,
-    )
+    ).setDriver(BundledSQLiteDriver())
 }
 
 @OptIn(ExperimentalForeignApi::class)
