@@ -21,6 +21,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.RewriteQueriesToDropUnusedColumns
 import androidx.room.Transaction
 import com.example.android.codelabs.paging.core.models.Repo
 import kotlinx.coroutines.flow.Flow
@@ -40,6 +41,7 @@ interface RepoDao {
     fun reposByName(queryString: String): PagingSource<Int, Repo>
 
     @Transaction
+    @RewriteQueriesToDropUnusedColumns
     @Query("SELECT * FROM repos " +
             "INNER JOIN remote_keys ON repos.id = remote_keys.repoId " +
             "WHERE remote_keys.`query` = :queryString " +
