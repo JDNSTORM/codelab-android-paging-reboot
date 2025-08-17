@@ -52,6 +52,10 @@ The project is organized into several modules:
 3.  Click the "Run" button.
     *Note: You might need to set up your development team in Xcode.*
 
+## Known Bugs
+
+*   [Paging-compose unusual jump behavior when displaying paged data + remote mediator](https://issuetracker.google.com/235319241)
+
 ## Acknowledgements
 
 *   This project is derived from the official [Android Paging Advanced Codelab](https://developer.android.com/codelabs/android-paging).
